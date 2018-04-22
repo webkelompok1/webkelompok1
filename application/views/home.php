@@ -11,15 +11,15 @@
     <title>SedekahTIME</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="http://localhost/tubesfw/b1/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://localhost/tubesfw/b2/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom fonts for this template -->
-    <link href="http://localhost/tubesfw/b1/assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="http://localhost/tubesfw/b1/assets/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css">
+    <link href="http://localhost/tubesfw/b2/assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://localhost/tubesfw/b2/assets/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
 
     <!-- Custom styles for this template -->
-    <link href="http://localhost/tubesfw/b1/assets/css/landing-page.min.css" rel="stylesheet">
+    <link href="http://localhost/tubesfw/b2/assets/css/landing-page.min.css" rel="stylesheet">
 
   </head>
 
@@ -107,8 +107,8 @@
     </footer>
 
     <!-- Bootstrap core JavaScript -->
-    <script src="http://localhost/tubesfw/b1/assets/vendor/jquery/jquery.min.js"></script>
-    <script src="http://localhost/tubesfw/b1/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="http://localhost/tubesfw/b2/assets/vendor/jquery/jquery.min.js"></script>
+    <script src="http://localhost/tubesfw/b2/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   </body>
 
