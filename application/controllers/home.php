@@ -19,8 +19,80 @@ class Home extends CI_Controller {
 	 */
 	public function index()
 	{
-                        $this->load->view('home');
+        $this->load->model('crud');
+		$data['isi'] = $this->crud->get_konten();
+		$this->load->view('home', $data);   
+	}
+
+	public function create()
+	{
+		$this->load->helper(array('form', 'url'));
+
+        $this->load->library('form_validation');
                 
+                $this->form_validation->set_rules('nama', 'Nama File', 'required', array('required' => ' %s aaaaaa'));
+                $this->form_validation->set_rules('deskripsi', 'Deskripsi', 'required');
+                $this->form_validation->set_rules('defile', 'Isi File', 'required');
+
+                if ($this->form_validation->run() == FALSE)
+                {
+                        $this->load->view('tambah');
+                }
+                else
+                {
+                        $this->load->model('crud');
+						$data = array();
+
+						if ($this->input->post('submit')) {
+							$upload = $this->crud->upload();
+
+						if ($upload['result'] == 'success') {
+							$this->crud->insert($upload);
+							redirect('home');
+							}else{
+							$data['message'] = $upload['error'];
+							}
+						}
+
+							$this->load->view('tambah', $data);
+              	 }
+	}
+
+	public function edit($id){
+		$where = array('id' => $id);
+		$data['user'] = $this->crud->edit_data($where,'berkas')->result();
+		$this->load->view('edit',$data);
+	}
+
+	public function update(){
+	
+    $this->load->model('crud');
+	$id = $this->input->post('id');
+	$nama = $this->input->post('nama');
+	$deskripsi = $this->input->post('deskripsi');
+	$tgl = $this->input->post('tgl');
+	$file = $this->input->post('isi_file');
+
+	$data = array(
+		'nama_file' => $nama,
+		'deskripsi' => $deskripsi,
+		'tgl_file' => $tgl,
+		'isi_file' => $file
+	);
+ 
+	$where = array(
+		'id' => $id
+	);
+ 
+	$this->crud->update_data($where,$data,'berkas');
+	redirect('home');
+	}
+
+	public function hapus($id)
+	{
+		$id = $this->uri->segment(3);
+		$this->crud->hapusdata($id);
+		redirect('home');
 	}
 }
 
