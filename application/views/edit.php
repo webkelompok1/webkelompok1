@@ -28,7 +28,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-light bg-light static-top">
       <div class="container">
-        <a class="navbar-brand" href="#">SedekahTIME</a>
+        <a class="navbar-brand" href="home">SedekahTIME</a>
         <a class="btn btn-primary" href="#">Sign In</a>
       </div>
     </nav>
@@ -58,7 +58,7 @@
         <tr>
           <td>File</td>
           <td>:</td>
-          <td><input type="file" name="isi_file" value="<?php echo $u->isi_file ?>"></td>
+          <td><input type="file" name="isi_file"></td>
         </tr>
         <tr>
           <td colspan="3"><input type="submit" name="submit" value="Upload"></td>

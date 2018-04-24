@@ -1,6 +1,11 @@
 <?php
 class Crud extends CI_Model {
 
+	public function __construct()
+	{
+		
+	}
+
 	public function get_konten()
 	{
 		$query = $this->db->get('berkas');
@@ -9,10 +14,11 @@ class Crud extends CI_Model {
 
 	public function upload()
 	{
-		$config['upload_path'] = './upload/';
-		$config['allowed_types'] = 'jpg|png';
-		$config['max_size']  = '2048';
-		$config['remove_space']  = TRUE;
+		$config['upload_path'] 		= './upload/';
+		$config['allowed_types'] 	= '*';
+		$config['max_size']  		= '120000000';
+		$config['remove_space'] 	= TRUE;
+		$config['overwrite']		= TRUE;
 		
 		$this->load->library('upload', $config);
 		
@@ -50,8 +56,20 @@ class Crud extends CI_Model {
 
 	public function hapusdata($id)
 	{
-		$this->db->where('id',$id);
-		$this->db->delete('berkas');
+		$row = $this->db->where('id',$id)->get('berkas')->row();
+
+		$this->db->where('id', $id);
+
+		unlink('upload/'.$row->isi_file);
+
+		$this->db->delete('berkas', array('id' => $id));
+	}
+
+	public function cari()
+	{
+		$cari = $this->input->GET('cari', TRUE);
+		$data = $this->db->query("SELECT * from berkas where nama_file like '%$cari%' ");
+		return $data->result();
 	}
 }
 ?>

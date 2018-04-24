@@ -38,8 +38,6 @@ class Home extends CI_Controller {
                 {
                         $this->load->view('tambah');
                 }
-                else
-                {
                         $this->load->model('crud');
 						$data = array();
 
@@ -53,9 +51,7 @@ class Home extends CI_Controller {
 							$data['message'] = $upload['error'];
 							}
 						}
-
-							$this->load->view('tambah', $data);
-              	 }
+              	 
 	}
 
 	public function edit($id){
@@ -65,21 +61,73 @@ class Home extends CI_Controller {
 	}
 
 	public function update(){
-	
+
     $this->load->model('crud');
+
+	if ( isset($_FILES['isi_file']) && $_FILES['isi_file']['size'] > 0 )
+    		{
+    			// Konfigurasi folder upload & file yang diijinkan
+    			// Jangan lupa buat folder uploads di dalam ci3-course
+    			$config['upload_path']          = './upload/';
+    	        $config['allowed_types']        = '*';
+    	        $config['max_size']             = 200000000;
+    	        $config['overwrite']			= TRUE;
+    	        $config['remove_space']  		= TRUE;
+
+    	        // Load library upload
+    	        $this->load->library('upload', $config);
+
+    	        // Apakah file berhasil diupload?
+    	        if ( ! $this->upload->do_upload('isi_file'))
+    	        {
+    	        	$data['upload_error'] = $this->upload->display_errors();
+
+    	        	$post_image = '';
+
+    	        	// Kita passing pesan error upload ke view supaya user mencoba upload ulang
+    	            $this->load->view('edit', $data); 
+
+    	        } else {
+
+    	        	// Hapus file image yang lama jika ada
+    	        	if( !empty($old_image) ) {
+    	        		if ( file_exists( './upload/'.$old_image ) ){
+    	        		    unlink( './upload/'.$old_image );
+    	        		} else {
+    	        		    echo 'File tidak ditemukan.';
+    	        		}
+    	        	}
+
+    	        	// Simpan nama file-nya jika berhasil diupload
+    	            $img_data = $this->upload->data();
+    	            $post_image = $img_data['file_name'];
+    	        	
+    	        }
+    		} else {
+
+    			// User tidak upload gambar, jadi kita kosongkan field ini, atau jika sudah ada, gunakan image sebelumnya
+    			if(isset($_FILES['isi_file']) == ''){
+					unset($data['isi_file']);
+				}
+
+    		}
+
 	$id = $this->input->post('id');
 	$nama = $this->input->post('nama');
 	$deskripsi = $this->input->post('deskripsi');
 	$tgl = $this->input->post('tgl');
-	$file = $this->input->post('isi_file');
+	//$file = $this->input->post('isi_file');
 
 	$data = array(
 		'nama_file' => $nama,
 		'deskripsi' => $deskripsi,
 		'tgl_file' => $tgl,
-		'isi_file' => $file
+		'isi_file' => $post_image
 	);
- 
+	//if($file==''){
+	//	unset($data['isi_file']);
+	//}
+ 	
 	$where = array(
 		'id' => $id
 	);
@@ -90,10 +138,29 @@ class Home extends CI_Controller {
 
 	public function hapus($id)
 	{
-		$id = $this->uri->segment(3);
 		$this->crud->hapusdata($id);
 		redirect('home');
 	}
+
+	public function cari() 
+	{
+		$this->load->view('search');
+	}
+ 
+	public function hasil()
+	{
+		$data2['cari'] = $this->crud->cari();
+		$this->load->view('result', $data2);
+	}
+
+	public function download($file){
+            //load download helper
+            $this->load->helper('download');
+            $name = $file;
+            $data = file_get_contents('upload/'.$file);
+            force_download($name, $data);
+            	redirect('home','refresh');
+    }
 }
 
 /* End of file welcome.php */
