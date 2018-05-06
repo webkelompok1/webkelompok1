@@ -29,50 +29,34 @@
     <nav class="navbar navbar-light bg-light static-top">
       <div class="container">
         <a class="navbar-brand" href="home">SedekahTIME</a>
-        <div class="dropdown">
-            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-              Kategori
-            </button>
-        <div class="dropdown-menu">
-        <?php foreach ($kategori as $key) {?>
-            <a class="dropdown-item" href="home/category/<?php echo $key->id ?>"><?=$key->cat_name;?></a>
-        <?php } ?>
-        </div>
-            <a class="btn btn-primary" href="#">Sign In</a>
-        </div>
+        <a class="btn btn-primary" href="#">Sign In</a>
       </div>
     </nav>
 
-    
-    <br>
-    <div class="container">
-    <div class="row text-center">
-      <?php if(count($cari)>0) { ?>
-      <?php foreach ($cari as $key) { ?>
-        <div class="col-lg-3 col-md-6 mb-4">
-          <div class="card">
-            <div class="card-body">
-              <h4 class="card-title"><?php echo $key->nama_file; ?></h4>
-              <h5 class="card-title"><?php echo $key->deskripsi; ?></h5>
-              <p class="card-text"><?php echo $key->isi_file; ?></p>
-            </div>
-            <div class="card-footer">
-            <a href="download/<?php echo $key->isi_file ?>" class="btn btn-primary">Download</a>
-            </div>
-            <div class="card-footer">
-            <a href="hapus/<?php echo $key->id ?>" class="btn btn-primary">Hapus</a>
-            </div>
-            <div class="card-footer">
-            <a href="edit/<?php echo $key->id ?>" class="btn btn-primary">Edit</a>
-            </div>
-          </div>
-        </div>
-      <?php } ?>
-      <?php } ?>
-      </div>
-      </div>
+<div class="container">
+ 	<?php echo form_open('category/update', array(
+  'class' => 'needs-validation',
+  'novalidate' => ''
+	)); 
 
-    <!-- Footer -->
+	?>
+	<?php foreach($user as $u){ ?>
+		<table style="margin:20px auto;">
+			<tr>
+				<td>Nama Kategori</td>
+				<td>
+					<input type="hidden" name="id" value="<?php echo $u->id ?>">
+					<input type="text" name="cat_name" value="<?php echo  $u->cat_name ?>" required>
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><input type="submit" name="submit"></td>
+			</tr>
+		</table>
+	</form>	
+	<?php } ?>
+<!-- Footer -->
     <footer class="footer bg-light">
       <div class="container">
         <div class="row">

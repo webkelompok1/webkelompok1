@@ -29,7 +29,17 @@
     <nav class="navbar navbar-light bg-light static-top">
       <div class="container">
         <a class="navbar-brand" href="home">SedekahTIME</a>
-        <a class="btn btn-primary" href="#">Sign In</a>
+        <div class="dropdown">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+              Kategori
+            </button>
+        <div class="dropdown-menu">
+        <?php foreach ($kategori as $key) {?>
+            <a class="dropdown-item" href="home/category/<?php echo $key->id ?>"><?=$key->cat_name;?></a>
+        <?php } ?>
+        </div>
+            <a class="btn btn-primary" href="#">Sign In</a>
+        </div>
       </div>
     </nav>
 
@@ -43,7 +53,6 @@
             <h1 class="mb-5">Cari file yang mau kamu downlod Disini !</h1>
           </div>
           <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
-            <form>
               <div class="form-row">
                 <div class="col-12 col-md-9 mb-2 mb-md-0">
                   <input type="text" name="cari" class="form-control form-control-lg" placeholder="Masukan Keyword...">
@@ -52,13 +61,12 @@
                   <button type="submit" class="btn btn-block btn-lg btn-primary">Search</button>
                 </div>
               </div>
-            </form>
           </div>
         </div>
       </div>
       </form>
     </header>
-    
+
     <br>
     <div class="container">
     <div class="row text-center">
@@ -71,13 +79,13 @@
               <p class="card-text"><?php echo $key->isi_file; ?></p>
             </div>
             <div class="card-footer">
-            <?php echo anchor('home/download/'.$key->isi_file,'Download'); ?>
+            <a href="home/download/<?php echo $key->isi_file ?>" class="btn btn-primary">Download</a>
             </div>
             <div class="card-footer">
-            <?php echo anchor('home/hapus/'.$key->id,'Hapus'); ?>
+            <a href="home/hapus/<?php echo $key->id ?>" class="btn btn-primary">Hapus</a>
             </div>
             <div class="card-footer">
-            <?php echo anchor('home/edit/'.$key->id,'Edit'); ?>
+            <a href="home/edit/<?php echo $key->id ?>" class="btn btn-primary">Edit</a>
             </div>
           </div>
         </div>
@@ -107,7 +115,7 @@
                 <a href="#">Privacy Policy</a>
               </li>
             </ul>
-            <p class="text-muted small mb-4 mb-lg-0">&copy; Your Website 2018. All Rights Reserved.</p>
+            <p class="text-muted small mb-4 mb-lg-0">&copy; SedekahTIME 2018. All Rights Reserved.</p>
           </div>
           <div class="col-lg-6 h-100 text-center text-lg-right my-auto">
             <ul class="list-inline mb-0">
@@ -135,6 +143,16 @@
     <!-- Bootstrap core JavaScript -->
     <script src="<?php echo base_url().'/assets/vendor/jquery/jquery.min.js' ?>"></script>
     <script src="<?php echo base_url().'/assets/vendor/bootstrap/js/bootstrap.bundle.min.js' ?>"></script>
+
+    <script>
+$(document).ready(function(){
+  $('.dropdown-submenu a.test').on("click", function(e){
+    $(this).next('ul').toggle();
+    e.stopPropagation();
+    e.preventDefault();
+  });
+});
+</script>
 
   </body>
 

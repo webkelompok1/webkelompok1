@@ -29,7 +29,17 @@
     <nav class="navbar navbar-light bg-light static-top">
       <div class="container">
         <a class="navbar-brand" href="home">SedekahTIME</a>
-        <a class="btn btn-primary" href="#">Sign In</a>
+        <div class="dropdown">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+              Kategori
+            </button>
+        <div class="dropdown-menu">
+        <?php foreach ($kategori as $key) {?>
+            <a class="dropdown-item" href="home/category/<?php echo $key->id ?>"><?=$key->cat_name;?></a>
+        <?php } ?>
+        </div>
+            <a class="btn btn-primary" href="#">Sign In</a>
+        </div>
       </div>
     </nav>
 
@@ -59,6 +69,17 @@
           <td>File</td>
           <td>:</td>
           <td><input type="file" name="isi_file"></td>
+        </tr>
+        <tr>
+          <td>Kategori</td>
+          <td>:</td>
+            <td><select name="cat_id">
+              <option value="">Pilih Kategori</option>
+              <?php foreach($categories as $category): ?>
+              <option value="<?php echo $category->id; ?>"><?php echo $category->cat_name; ?></option>
+              <?php endforeach; ?>
+            </select>
+            </td>
         </tr>
         <tr>
           <td colspan="3"><input type="submit" name="submit" value="Upload"></td>
@@ -91,7 +112,7 @@
                 <a href="#">Privacy Policy</a>
               </li>
             </ul>
-            <p class="text-muted small mb-4 mb-lg-0">&copy; Your Website 2018. All Rights Reserved.</p>
+            <p class="text-muted small mb-4 mb-lg-0">&copy; SedekahTIME 2018. All Rights Reserved.</p>
           </div>
           <div class="col-lg-6 h-100 text-center text-lg-right my-auto">
             <ul class="list-inline mb-0">

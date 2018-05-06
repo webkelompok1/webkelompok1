@@ -47,13 +47,13 @@
     <br>
     <div class="container">
     <div class="row text-center">
-      <?php if(count($cari)>0) { ?>
-      <?php foreach ($cari as $key) { ?>
+      <?php foreach ($detail as $key) { ?>
         <div class="col-lg-3 col-md-6 mb-4">
           <div class="card">
             <div class="card-body">
               <h4 class="card-title"><?php echo $key->nama_file; ?></h4>
               <h5 class="card-title"><?php echo $key->deskripsi; ?></h5>
+              <h5 class="card-title"><?php echo $key->cat_name; ?></h5>
               <p class="card-text"><?php echo $key->isi_file; ?></p>
             </div>
             <div class="card-footer">
@@ -67,7 +67,6 @@
             </div>
           </div>
         </div>
-      <?php } ?>
       <?php } ?>
       </div>
       </div>
@@ -94,7 +93,7 @@
                 <a href="#">Privacy Policy</a>
               </li>
             </ul>
-            <p class="text-muted small mb-4 mb-lg-0">&copy; Your Website 2018. All Rights Reserved.</p>
+            <p class="text-muted small mb-4 mb-lg-0">&copy; SedekahTIME 2018. All Rights Reserved.</p>
           </div>
           <div class="col-lg-6 h-100 text-center text-lg-right my-auto">
             <ul class="list-inline mb-0">

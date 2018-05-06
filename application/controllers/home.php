@@ -21,11 +21,23 @@ class Home extends CI_Controller {
 	{
         $this->load->model('crud');
 		$data['isi'] = $this->crud->get_konten();
+		$data['kategori'] = $this->crud->get_kategori();
 		$this->load->view('home', $data);   
+	}
+
+	public function category($category)
+	{
+		$this->load->model('crud');
+		$data['detail'] = $this->crud->get_kategori_id($category);
+		$data['kategori'] = $this->crud->get_kategori();
+		$this->load->view('result_kategori',$data);
 	}
 
 	public function create()
 	{
+		$this->load->model('category_model');
+		$data['categories'] = $this->category_model->get_all_categories();
+		$data['kategori'] = $this->crud->get_kategori();
 		$this->load->helper(array('form', 'url'));
 
         $this->load->library('form_validation');
@@ -33,10 +45,11 @@ class Home extends CI_Controller {
                 $this->form_validation->set_rules('nama', 'Nama File', 'required', array('required' => ' %s aaaaaa'));
                 $this->form_validation->set_rules('deskripsi', 'Deskripsi', 'required');
                 $this->form_validation->set_rules('defile', 'Isi File', 'required');
+                $this->form_validation->set_rules('cat_id', 'Kategori', 'required');
 
                 if ($this->form_validation->run() == FALSE)
                 {
-                        $this->load->view('tambah');
+                        $this->load->view('tambah',$data);
                 }
                         $this->load->model('crud');
 						$data = array();
@@ -56,7 +69,10 @@ class Home extends CI_Controller {
 
 	public function edit($id){
 		$where = array('id' => $id);
+		$this->load->model('category_model');
 		$data['user'] = $this->crud->edit_data($where,'berkas')->result();
+		$data['kategori'] = $this->crud->get_kategori();
+		$data['categories'] = $this->category_model->get_all_categories();
 		$this->load->view('edit',$data);
 	}
 
@@ -116,14 +132,24 @@ class Home extends CI_Controller {
 	$nama = $this->input->post('nama');
 	$deskripsi = $this->input->post('deskripsi');
 	$tgl = $this->input->post('tgl');
+	$cat_id = $this->input->post('cat_id');
 	//$file = $this->input->post('isi_file');
 
-	$data = array(
+	if($post_image=='' && $cat_id=='') {
+		$data = array(
+		'nama_file' => $nama,
+		'deskripsi' => $deskripsi,
+		'tgl_file' => $tgl
+		);
+	} else {
+		$data = array(
 		'nama_file' => $nama,
 		'deskripsi' => $deskripsi,
 		'tgl_file' => $tgl,
-		'isi_file' => $post_image
-	);
+		'isi_file' => $post_image,
+		'cat_id' => $cat_id
+		);
+	}
 	//if($file==''){
 	//	unset($data['isi_file']);
 	//}
@@ -149,6 +175,7 @@ class Home extends CI_Controller {
  
 	public function hasil()
 	{
+		$data2['kategori'] = $this->crud->get_kategori();
 		$data2['cari'] = $this->crud->cari();
 		$this->load->view('result', $data2);
 	}
