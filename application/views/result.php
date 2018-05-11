@@ -52,9 +52,9 @@
         <div class="col-lg-3 col-md-6 mb-4">
           <div class="card">
             <div class="card-body">
+              <img class="card-img-top" src="<?php echo base_url() .'upload/'. $key->isi_file ?>" alt="Card image cap">
               <h4 class="card-title"><?php echo $key->nama_file; ?></h4>
-              <h5 class="card-title"><?php echo $key->deskripsi; ?></h5>
-              <p class="card-text"><?php echo $key->isi_file; ?></p>
+              <p class="card-title"><?php echo $key->deskripsi; ?></p>
             </div>
             <div class="card-footer">
             <a href="download/<?php echo $key->isi_file ?>" class="btn btn-primary">Download</a>

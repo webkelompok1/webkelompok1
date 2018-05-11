@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SedekahTIME</title>
+    <title>bukanEventBrite</title>
 
     <!-- Bootstrap core CSS -->
     <link href="<?php echo base_url().'/assets/vendor/bootstrap/css/bootstrap.min.css' ?>" rel="stylesheet">
@@ -28,8 +28,9 @@
     <!-- Navigation -->
     <nav class="navbar navbar-light bg-light static-top">
       <div class="container">
-        <a class="navbar-brand" href="home">SedekahTIME</a>
+        <a class="navbar-brand" href="home">bukanEventBrite</a>
         <div class="dropdown">
+            <a class="btn btn-primary" href="home/create">Buat Event!</a>
             <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
               Kategori
             </button>
@@ -50,7 +51,7 @@
       <div class="container">
         <div class="row">
           <div class="col-xl-9 mx-auto">
-            <h1 class="mb-5">Cari file yang mau kamu downlod Disini !</h1>
+            <h1 class="mb-5">Cari event yang mau kamu datengin Disini !</h1>
           </div>
           <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
               <div class="form-row">
@@ -74,18 +75,18 @@
         <div class="col-lg-3 col-md-6 mb-4">
           <div class="card">
             <div class="card-body">
+              <img class="card-img-top" width="150" height="150" src="<?php echo base_url() .'upload/'. $key->isi_file ?>" alt="Card image cap">
               <h4 class="card-title"><?php echo $key->nama_file; ?></h4>
-              <h5 class="card-title"><?php echo $key->deskripsi; ?></h5>
-              <p class="card-text"><?php echo $key->isi_file; ?></p>
+              <p class="card-title"><?php echo $key->deskripsi ?></p>
             </div>
             <div class="card-footer">
-            <a href="home/download/<?php echo $key->isi_file ?>" class="btn btn-primary">Download</a>
+            <a href="home/create_pendaftar/<?php echo $key->id ?>" class="btn btn-primary">Daftar !</a>
             </div>
             <div class="card-footer">
             <a href="home/hapus/<?php echo $key->id ?>" class="btn btn-primary">Hapus</a>
             </div>
             <div class="card-footer">
-            <a href="home/edit/<?php echo $key->id ?>" class="btn btn-primary">Edit</a>
+            <a href="home/create/<?php echo $key->id ?>" class="btn btn-primary">Edit</a>
             </div>
           </div>
         </div>
@@ -115,7 +116,7 @@
                 <a href="#">Privacy Policy</a>
               </li>
             </ul>
-            <p class="text-muted small mb-4 mb-lg-0">&copy; SedekahTIME 2018. All Rights Reserved.</p>
+            <p class="text-muted small mb-4 mb-lg-0">&copy; bukanEventBrite 2018. All Rights Reserved.</p>
           </div>
           <div class="col-lg-6 h-100 text-center text-lg-right my-auto">
             <ul class="list-inline mb-0">

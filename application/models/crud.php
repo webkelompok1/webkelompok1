@@ -49,12 +49,44 @@ class Crud extends CI_Model {
 			'id' => '',
 			'nama_file' => $this->input->post('nama'),
 			'deskripsi' => $this->input->post('deskripsi'),
-			'tgl_file' => date("Y-m-d H:i:s"),
+			'tgl_file' => $this->input->post('tgl'),
+			'waktu' => $this->input->post('waktu'),
 			'isi_file' => $upload['file']['file_name'],
+			'jenis_tiket' => $this->input->post('jenis_tiket'),
+			'harga' => $this->input->post('harga'),
+			'lokasi' => $this->input->post('lokasi'),
 			'cat_id' => $this->input->post('cat_id')
 		);
 
 		$this->db->insert('berkas', $data);
+	}
+
+	public function insert_tiket()
+	{
+		$data = array(
+			'id' => '',
+			'kategori' => $this->input->post('kategori'),
+			'harga' => $this->input->post('harga'),
+			'id_event' => $this->input->post('id_event')
+		);
+
+		$this->db->insert('tiket', $data);
+	}
+
+	public function insert_pendaftar()
+	{
+		$data = array(
+			'id' => '',
+			'nama' => $this->input->post('nama'),
+			'alamat' => $this->input->post('alamat'),
+			'no_telp' => $this->input->post('no_telp'),
+			'email' => $this->input->post('email'),
+			'jenis_tiket' => $this->input->post('jenis_tiket'),
+			'harga' => $this->input->post('harga'),
+			'id_event' => $this->input->post('id_event')
+		);
+
+		$this->db->insert('pendaftar', $data);
 	}
 
 	public function edit_data($where,$table)

@@ -46,6 +46,11 @@ class Home extends CI_Controller {
                 $this->form_validation->set_rules('deskripsi', 'Deskripsi', 'required');
                 $this->form_validation->set_rules('defile', 'Isi File', 'required');
                 $this->form_validation->set_rules('cat_id', 'Kategori', 'required');
+                $this->form_validation->set_rules('waktu', 'Waktu', 'required');
+                $this->form_validation->set_rules('tgl', 'Tanggal', 'required');
+                $this->form_validation->set_rules('jenis_tiket', 'Jenis Tiket', 'required');
+                $this->form_validation->set_rules('harga', 'Harga', 'required');
+                $this->form_validation->set_rules('lokasi', 'Lokasi', 'required');
 
                 if ($this->form_validation->run() == FALSE)
                 {
@@ -65,6 +70,60 @@ class Home extends CI_Controller {
 							}
 						}
               	 
+	}
+
+	/*public function create_tiket($id)
+	{
+		$where = array('id' => $id);
+		$this->load->model('category_model');
+		$data['categories'] = $this->category_model->get_all_categories();
+		$data['kategori'] = $this->crud->get_kategori();
+		$data['user'] = $this->crud->edit_data($where,'berkas')->result();
+		$this->load->helper(array('form', 'url'));
+
+        $this->load->library('form_validation');
+                
+                $this->form_validation->set_rules('kategori', 'Kategori', 'required', array('required' => ' %s aaaaaa'));
+                $this->form_validation->set_rules('harga', 'Harga', 'required');
+
+                if ($this->form_validation->run() == FALSE)
+                {
+                        $this->load->view('tambah_tiket',$data);
+                }
+                        $this->load->model('crud');
+						$data = array();
+
+						if ($this->input->post('submit')) {
+							$this->crud->insert_tiket();
+							redirect('home');
+						}
+	}*/
+
+	public function create_pendaftar($id)
+	{
+		$where = array('id' => $id);
+		$this->load->model('category_model');
+		$data['user'] = $this->crud->edit_data($where,'berkas')->result();
+		$this->load->helper(array('form', 'url'));
+
+        $this->load->library('form_validation');
+                
+                $this->form_validation->set_rules('nama', 'Nama', 'required', array('required' => ' %s aaaaaa'));
+                $this->form_validation->set_rules('alamat', 'Alamat', 'required');
+                $this->form_validation->set_rules('no_telp', 'No_Telp', 'required');
+                $this->form_validation->set_rules('email', 'Email', 'required');
+
+                if ($this->form_validation->run() == FALSE)
+                {
+                        $this->load->view('tambah_pendaftar',$data);
+                }
+                        $this->load->model('crud');
+						$data = array();
+
+						if ($this->input->post('submit')) {
+							$this->crud->insert_pendaftar();
+							redirect('home');
+						}
 	}
 
 	public function edit($id){
