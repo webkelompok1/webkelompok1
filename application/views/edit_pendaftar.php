@@ -124,7 +124,7 @@
                 <div class="col-lg-6">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Tambah
+                            Tambah Tiket
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
@@ -132,38 +132,47 @@
                                 <table class="table table-striped">
                                     <tbody>
                                       <?php echo (isset($message))? : "";?>
-                                      <?php echo form_open('home/update', array('enctype'=>'multipart/form-data')); ?>
-                                      <?php foreach($user as $u){ ?>     
+                                      <?php echo form_open('home/update_pendaftar', array('enctype'=>'multipart/form-data')); ?>
+                                      <?php foreach($user as $u){ ?>
                                             <tr>
-                                              <th>Nama Event</th>
+                                              <th>Nama</th>
                                               <td>
                                               <div class="form-group">
-                                              <input class="form-control" type="text" name="nama" value="<?php echo $u->nama_file ?>">
-                                              <input type="hidden" name="id" value="<?php echo $u->id ?>">
+                                              <input class="form-control" type="text" name="nama" value="<?php echo $u->nama ?>">
+                                              <input type="hidden" name="id_event" value="<?php echo $u->id ?>">
                                               </div>
                                               </td>
                                             </tr>
                                             <tr>
-                                              <th>Deskripsi</th>
+                                              <th>Alamat</th>
                                               <td>
-                                              <div class="form-group">  
-                                              <textarea class="form-control" name="deskripsi"><?php echo $u->deskripsi ?></textarea>
+                                              <div class="form-group">
+                                              <textarea name="alamat" rows="2" class="form-control"><?php echo $u->alamat ?></textarea>
                                               </div>
                                               </td>
                                             </tr>
                                             <tr>
-                                              <th>Poster / Gambar</th>
+                                              <th>Nomor Telepon</th>
                                               <td>
                                               <div class="form-group">
-                                              <input class="form-control" type="file" name="defile">
+                                              <input class="form-control" type="text" name="no_telp" value="<?php echo $u->no_telp ?>">
                                               </div>
                                               </td>
+                                            </tr>
+                                            <tr>
+                                              <th>Email</th>
+                                              <td>
+                                            <div class="form-group input-group">
+                                            <span class="input-group-addon">@</span>
+                                            <input type="email" class="form-control" name="email" value="<?php echo $u->email ?>">
+                                            </div>
+                                            </td>
                                             </tr>
                                             <tr>
                                                 <th>Jenis Tiket</th>
                                                 <td>
                                                 <div class="form-group">
-                                                <input class="form-control" type="text" name="jenis_tiket" value="<?php echo $u->jenis_tiket ?>">
+                                                <input class="form-control" type="text" name="jenis_tiket" value="<?php echo $u->jenis_tiket ?>" disabled>
                                                 </div>
                                                 </td>
                                             </tr>
@@ -171,44 +180,7 @@
                                                 <th>Harga Tiket</th>
                                                 <td>
                                                 <div class="form-group">
-                                                <input class="form-control" type="text" name="harga" value="<?php echo $u->harga ?>">
-                                                </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th>Tanggal</th>
-                                                <td>
-                                                <div class="form-group">
-                                                <input class="form-control" type="date" name="tgl" value="<?php echo $u->tgl_file ?>">
-                                                </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th>Waktu</th>
-                                                <td>
-                                                <div class="form-group">
-                                                <input class="form-control" type="time" name="waktu" value="<?php echo $u->waktu ?>">
-                                                </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th>Lokasi</th>
-                                                <td>
-                                                <div class="form-group">
-                                                <textarea class="form-control" name="lokasi" rows="2"><?php echo $u->lokasi ?></textarea>
-                                                </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th>Kategori</th>
-                                                <td>
-                                                <div class="form-group">
-                                                <select class="form-control" name="cat_id">
-                                                  <option value="">Pilih Kategori</option>
-                                                  <?php foreach($categories as $category): ?>
-                                                  <option value="<?php echo $category->id; ?>"><?php echo $category->cat_name; ?></option>
-                                                  <?php endforeach; ?>
-                                                </select>
+                                                <input class="form-control" type="text" name="harga" value="<?php echo $u->harga ?>" disabled>
                                                 </div>
                                                 </td>
                                             </tr>

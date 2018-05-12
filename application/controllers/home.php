@@ -191,6 +191,10 @@ class Home extends CI_Controller {
 	$nama = $this->input->post('nama');
 	$deskripsi = $this->input->post('deskripsi');
 	$tgl = $this->input->post('tgl');
+	$waktu = $this->input->post('waktu');
+	$jenis_tiket = $this->input->post('jenis_tiket');
+	$harga = $this->input->post('harga');
+	$lokasi = $this->input->post('lokasi');
 	$cat_id = $this->input->post('cat_id');
 	//$file = $this->input->post('isi_file');
 
@@ -198,14 +202,22 @@ class Home extends CI_Controller {
 		$data = array(
 		'nama_file' => $nama,
 		'deskripsi' => $deskripsi,
-		'tgl_file' => $tgl
+		'tgl_file' => $tgl,
+		'waktu' => $waktu,
+		'jenis_tiket' => $jenis_tiket,
+		'harga' => $harga,
+		'lokasi' => $lokasi
 		);
 	} else {
 		$data = array(
 		'nama_file' => $nama,
 		'deskripsi' => $deskripsi,
 		'tgl_file' => $tgl,
+		'waktu' => $waktu,
 		'isi_file' => $post_image,
+		'jenis_tiket' => $jenis_tiket,
+		'harga' => $harga,
+		'lokasi' => $lokasi,
 		'cat_id' => $cat_id
 		);
 	}
@@ -221,9 +233,46 @@ class Home extends CI_Controller {
 	redirect('home');
 	}
 
+	public function edit_pendaftar($id){
+		$this->load->model('crud');
+		$where = array('id' => $id);
+		$data['user'] = $this->crud->edit_data($where,'pendaftar')->result();
+		$this->load->view('edit_pendaftar',$data);
+	}
+
+	public function update_pendaftar(){
+	
+    $this->load->model('crud');
+	$id = $this->input->post('id_event');
+	$nama = $this->input->post('nama');
+	$alamat = $this->input->post('alamat');
+	$no_telp = $this->input->post('no_telp');
+	$email = $this->input->post('email');
+ 
+	$data = array(
+		'nama' => $nama,
+		'alamat' => $alamat,
+		'no_telp' => $no_telp,
+		'email' => $email
+	);
+ 
+	$where = array(
+		'id' => $id
+	);
+ 
+	$this->crud->update_data($where,$data,'pendaftar');
+	redirect('home');
+	}
+
 	public function hapus($id)
 	{
 		$this->crud->hapusdata($id);
+		redirect('home');
+	}
+
+	public function hapus_pendaftar($id)
+	{
+		$this->crud->hapusdatapendaftar($id);
 		redirect('home');
 	}
 
@@ -239,14 +288,14 @@ class Home extends CI_Controller {
 		$this->load->view('result', $data2);
 	}
 
-	public function download($file){
+	/*public function download($file){
             //load download helper
             $this->load->helper('download');
             $name = $file;
             $data = file_get_contents('upload/'.$file);
             force_download($name, $data);
             	redirect('home','refresh');
-    }
+    }*/
 }
 
 /* End of file welcome.php */

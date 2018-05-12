@@ -110,6 +110,17 @@ class Crud extends CI_Model {
 		$this->db->delete('berkas', array('id' => $id));
 	}
 
+	public function hapusdatapendaftar($id)
+	{
+		$row = $this->db->where('id',$id)->get('pendaftar')->row();
+
+		$this->db->where('id', $id);
+
+		unlink('upload/'.$row->isi_file);
+
+		$this->db->delete('pendaftar', array('id' => $id));
+	}
+
 	public function cari()
 	{
 		$cari = $this->input->GET('cari', TRUE);
