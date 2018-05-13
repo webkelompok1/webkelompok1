@@ -17,13 +17,124 @@ class Home extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
+	public function __construct()
+  	{
+        parent::__construct();
+ 
+        // load Pagination library
+        $this->load->library('pagination');
+         
+        // load URL helper
+        $this->load->helper('url');
+        $this->load->model('crud');
+    }
+
 	public function index()
 	{
         $this->load->model('crud');
-		$data['isi'] = $this->crud->get_konten();
-		$data['kategori'] = $this->crud->get_kategori();
-		$this->load->view('home', $data);   
+		$params = array();
+        $limit_per_page = 1;
+        $start_index = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+        $total_records = $this->crud->get_total();
+ 
+        if ($total_records > 0) 
+        {
+            // get current page records
+            $params["results"] = $this->crud->get_konten($limit_per_page, $start_index);
+            $params['kategori'] = $this->crud->get_kategori();
+
+            $config['base_url'] = base_url() . 'home/index';
+            $config['total_rows'] = $total_records;
+            $config['per_page'] = $limit_per_page;
+            $config["uri_segment"] = 3;
+
+            $config['full_tag_open'] 	= '<nav><ul class="pagination justify-content-center">';
+			$config['full_tag_close'] 	= '</ul></nav>';
+
+			$config['num_tag_open'] 	= '<li class="page-item"><span class="page-link">';
+			$config['num_tag_close'] 	= '</span></li>';
+
+			$config['cur_tag_open'] 	= '<li class="page-item active"><span class="page-link">';
+			$config['cur_tag_close'] 	= '<span class="sr-only">(current)</span></span></li>';
+
+			$config['next_tag_open'] 	= '<li class="page-item"><span class="page-link">';
+			$config['next_tagl_close'] 	= '<span aria-hidden="true">&raquo;</span></span></li>';
+
+			$config['prev_tag_open'] 	= '<li class="page-item"><span class="page-link">';
+			$config['prev_tagl_close'] 	= '</span></li>';
+
+			$config['first_tag_open'] 	= '<li class="page-item"><span class="page-link">';
+			$config['first_tagl_close'] = '</span></li>';
+
+			$config['last_tag_open'] 	= '<li class="page-item"><span class="page-link">';
+			$config['last_tagl_close'] 	= '</span></li>';
+
+            $this->pagination->initialize($config);
+             
+            // build paging links
+            $params["links"] = $this->pagination->create_links();
+        }
+         
+        $this->load->view('home', $params);
 	}
+
+	public function custom()
+    {
+        // init params
+        $params = array();
+        $limit_per_page = 2;
+        $page = ($this->uri->segment(3)) ? ($this->uri->segment(3) - 1) : 0;
+        $total_records = $this->crud->get_total();
+     
+        if ($total_records > 0)
+        {
+            // get current page records
+            $params["results"] = $this->crud->get_konten($limit_per_page, $page*$limit_per_page);
+                 
+            $config['base_url'] = base_url() . 'home/custom';
+            $config['total_rows'] = $total_records;
+            $config['per_page'] = $limit_per_page;
+            $config["uri_segment"] = 3;
+             
+            // custom paging configuration
+            $config['num_links'] = 2;
+            $config['use_page_numbers'] = TRUE;
+            $config['reuse_query_string'] = TRUE;
+             
+            $config['full_tag_open'] = '<div class="pagination">';
+            $config['full_tag_close'] = '</div>';
+             
+            $config['first_link'] = 'First Page';
+            $config['first_tag_open'] = '<span class="firstlink">';
+            $config['first_tag_close'] = '</span>';
+             
+            $config['last_link'] = 'Last Page';
+            $config['last_tag_open'] = '<span class="lastlink">';
+            $config['last_tag_close'] = '</span>';
+             
+            $config['next_link'] = 'Next Page';
+            $config['next_tag_open'] = '<span class="nextlink">';
+            $config['next_tag_close'] = '</span>';
+ 
+            $config['prev_link'] = 'Prev Page';
+            $config['prev_tag_open'] = '<span class="prevlink">';
+            $config['prev_tag_close'] = '</span>';
+ 
+            $config['cur_tag_open'] = '<span class="curlink">';
+            $config['cur_tag_close'] = '</span>';
+ 
+            $config['num_tag_open'] = '<span class="numlink">';
+            $config['num_tag_close'] = '</span>';
+             
+            $this->pagination->initialize($config);
+                 
+            // build paging links
+            $params["links"] = $this->pagination->create_links();
+        }
+     
+        $this->load->view('home', $params);
+    }
+
 
 	public function category($category)
 	{

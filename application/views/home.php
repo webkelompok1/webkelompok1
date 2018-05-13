@@ -21,6 +21,8 @@
     <!-- Custom styles for this template -->
     <link href="<?php echo base_url().'/assets/css/landing-page.min.css' ?>" rel="stylesheet">
 
+    <link rel="stylesheet" href="<?php echo base_url().'/assets/pagination/vendor/bootstrap/css/bootstrap.min.css' ?>">
+
   </head>
 
   <body>
@@ -71,7 +73,7 @@
     <br>
     <div class="container">
     <div class="row text-center">
-      <?php foreach ($isi as $key) { ?>
+      <?php foreach ($results as $key) { ?>
         <div class="col-lg-3 col-md-6 mb-4">
           <div class="card">
             <div class="card-body">
@@ -92,6 +94,9 @@
         </div>
       <?php } ?>
       </div>
+      <?php if (isset($links)) { ?>
+                <?php echo $links ?>
+      <?php } ?>
       </div>
 
     <!-- Footer -->

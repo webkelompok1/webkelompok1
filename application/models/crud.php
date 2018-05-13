@@ -6,11 +6,29 @@ class Crud extends CI_Model {
 		
 	}
 
-	public function get_konten()
+	public function get_konten($limit, $start)
 	{
-		$query = $this->db->get('berkas');
-		return $query->result();
+		$this->db->limit($limit, $start);
+        $query = $this->db->get("berkas");
+
+		if ($query->num_rows() > 0) 
+        {
+            foreach ($query->result() as $row) 
+            {
+                $data[] = $row;
+            }
+             
+            return $data;
+        }
+ 
+        return false;
 	}
+
+	public function get_total() 
+    {
+        // Dapatkan jumlah total artikel
+        return $this->db->count_all("berkas");
+    }
 
 	public function get_kategori()
 	{
