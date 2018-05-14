@@ -121,95 +121,54 @@
         <div id="page-wrapper">
             <!-- /.row -->
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Tambah Tiket
+                            DataTables
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped">
-                                    <tbody>
-                                      <?php echo (isset($message))? : "";?>
-                                      <?php    
-                                        $this->form_validation->set_error_delimiters('<div class="alert alert-warning" role="alert">', '</div>');
-                                      ?>
-                                      <?php echo validation_errors(); ?>
-                                      <?php echo form_open('home/create_pendaftar', array('enctype'=>'multipart/form-data')); ?>
-                                            <tr>
-                                              <th>Nama</th>
-                                              <td>
-                                              <div class="form-group">
-                                              <input class="form-control" type="text" name="nama">
-                                              <?php foreach($user as $u){ ?>
-                                              <input type="hidden" name="id_event" value="<?php echo $u->id ?>">
-                                              </div>
-                                              </td>
-                                            </tr>
-                                            <tr>
-                                              <th>Alamat</th>
-                                              <td>
-                                              <div class="form-group">
-                                              <textarea name="alamat" rows="2" class="form-control"></textarea>
-                                              </div>
-                                              </td>
-                                            </tr>
-                                            <tr>
-                                              <th>Nomor Telepon</th>
-                                              <td>
-                                              <div class="form-group">
-                                              <input class="form-control" type="text" name="no_telp">
-                                              </div>
-                                              </td>
-                                            </tr>
-                                            <tr>
-                                              <th>Email</th>
-                                              <td>
-                                            <div class="form-group input-group">
-                                            <span class="input-group-addon">@</span>
-                                            <input type="email" class="form-control" placeholder="Email" name="email">
-                                            </div>
-                                            </td>
-                                            </tr>
-                                            <tr>
-                                              <th>Jumlah Tiket</th>
-                                              <td>
-                                              <div class="form-group">
-                                              <input class="form-control" type="text" name="qty">
-                                              </div>
-                                              </td>
-                                            </tr>
-                                            <tr>
-                                                <th>Jenis Tiket</th>
-                                                <td>
-                                                <div class="form-group">
-                                                <input class="form-control" type="text" name="jenis_tiket" value="<?php echo $u->jenis_tiket ?>">
-                                                </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th>Harga Tiket</th>
-                                                <td>
-                                                <div class="form-group">
-                                                <input class="form-control" type="text" name="harga" value="<?php echo $u->harga ?>">
-                                                </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                              <td colspan="3"><button class="btn btn-default"><input type="submit" name="submit" value="Simpan"></button></td>
-                                            </tr>
-                                            <?php } ?>
-                                      </form>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!-- /.table-responsive -->
+                            <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                <thead>
+                                    <tr>
+                                        <th>ID Event</th>
+                                        <th>Nama Event</th>
+                                        <th>Deskripsi</th>
+                                        <th>Tanggal Acara</th>
+                                        <th>Waktu</th>
+                                        <th>Gambar / Poster</th>
+                                        <th>Jenis Tiket</th>
+                                        <th>Harga</th>
+                                        <th>Lokasi</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($event as $d) : ?>
+                                        <tr>
+                                        <td><?php echo $d->id ?></td>
+                                        <td><?php echo $d->nama_file ?></td>
+                                        <td><?php echo $d->deskripsi ?></td>
+                                        <td><?php echo $d->tgl_file ?></td>
+                                        <td><?php echo $d->waktu ?></td>
+                                        <td><?php echo $d->isi_file ?></td>
+                                        <td><?php echo $d->jenis_tiket ?></td>
+                                        <td><?php echo $d->harga ?></td>
+                                        <td><?php echo $d->lokasi ?></td>
+                                        <td>
+                                            <a href="<?php echo base_url('/home/edit/') . $d->id ?>" class="btn btn-sm btn-outline-primary">Edit</a> 
+                                            <a href="<?php echo base_url('/home/hapus/') . $d->id ?>" class="btn btn-sm btn-outline-danger">Delete</a> 
+                                        </td>
+                                        </tr>
+                                    <?php endforeach; ?> 
+                                </tbody>
+                            </table>
                         </div>
                         <!-- /.panel-body -->
                     </div>
                     <!-- /.panel -->
                 </div>
+                <!-- /.col-lg-12 -->
             </div>
         </div>
         <!-- /#page-wrapper -->

@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SedekahTIME</title>
+    <title>bukanEventBrite</title>
 
     <!-- Bootstrap core CSS -->
     <link href="<?php echo base_url().'/assets/vendor/bootstrap/css/bootstrap.min.css' ?>" rel="stylesheet">
@@ -28,7 +28,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-light bg-light static-top">
       <div class="container">
-        <a class="navbar-brand" href="home">SedekahTIME</a>
+        <a class="navbar-brand" href="home">bukanEventBrite</a>
         <div class="dropdown">
             <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
               Kategori
@@ -55,15 +55,11 @@
               <img class="card-img-top" src="<?php echo base_url() .'upload/'. $key->isi_file ?>" alt="Card image cap">
               <h4 class="card-title"><?php echo $key->nama_file; ?></h4>
               <p class="card-title"><?php echo $key->deskripsi; ?></p>
+              <p class="card-title"><b>Lokasi : </b><?php echo $key->lokasi; ?></p>
+              <p class="card-title"><b>Harga : </b>Rp.<?php echo $key->harga ?> / </b><?php echo $key->jenis_tiket ?></p>
             </div>
             <div class="card-footer">
-            <a href="download/<?php echo $key->isi_file ?>" class="btn btn-primary">Download</a>
-            </div>
-            <div class="card-footer">
-            <a href="hapus/<?php echo $key->id ?>" class="btn btn-primary">Hapus</a>
-            </div>
-            <div class="card-footer">
-            <a href="edit/<?php echo $key->id ?>" class="btn btn-primary">Edit</a>
+            <a href="home/create_pendaftar/<?php echo $key->id ?>" class="btn btn-primary">Daftar !</a>
             </div>
           </div>
         </div>
@@ -94,7 +90,7 @@
                 <a href="#">Privacy Policy</a>
               </li>
             </ul>
-            <p class="text-muted small mb-4 mb-lg-0">&copy; Your Website 2018. All Rights Reserved.</p>
+            <p class="text-muted small mb-4 mb-lg-0">&copy; bukanEventBrite 2018. All Rights Reserved.</p>
           </div>
           <div class="col-lg-6 h-100 text-center text-lg-right my-auto">
             <ul class="list-inline mb-0">

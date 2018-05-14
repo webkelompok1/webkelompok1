@@ -79,7 +79,7 @@ class Crud extends CI_Model {
 		$this->db->insert('berkas', $data);
 	}
 
-	public function insert_tiket()
+	/*public function insert_tiket()
 	{
 		$data = array(
 			'id' => '',
@@ -89,16 +89,21 @@ class Crud extends CI_Model {
 		);
 
 		$this->db->insert('tiket', $data);
-	}
+	}*/
 
 	public function insert_pendaftar()
 	{
+		$qty = $this->input->post('qty');
+		$harga = $this->input->post('harga');
+		$total_harga = $harga * $qty;
 		$data = array(
 			'id' => '',
 			'nama' => $this->input->post('nama'),
 			'alamat' => $this->input->post('alamat'),
 			'no_telp' => $this->input->post('no_telp'),
 			'email' => $this->input->post('email'),
+			'qty' => $this->input->post('qty'),
+			'total_harga' => $total_harga,
 			'jenis_tiket' => $this->input->post('jenis_tiket'),
 			'harga' => $this->input->post('harga'),
 			'id_event' => $this->input->post('id_event')
@@ -144,6 +149,18 @@ class Crud extends CI_Model {
 		$cari = $this->input->GET('cari', TRUE);
 		$data = $this->db->query("SELECT * from berkas where nama_file like '%$cari%' ");
 		return $data->result();
+	}
+
+	public function get_dataevent()
+	{
+		$query = $this->db->get('berkas');
+		return $query->result();
+	}
+
+	public function get_datapendaftar()
+	{
+		$query = $this->db->get('pendaftar');
+		return $query->result();
 	}
 }
 ?>

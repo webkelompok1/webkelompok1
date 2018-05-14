@@ -407,6 +407,17 @@ class Home extends CI_Controller {
             force_download($name, $data);
             	redirect('home','refresh');
     }*/
+
+    public function table()
+	{
+		$data2['event'] = $this->crud->get_dataevent();
+		$this->load->view('tables', $data2);
+	}
+	public function table2()
+	{
+		$data2['pendaftar'] = $this->crud->get_datapendaftar();
+		$this->load->view('tables2', $data2);
+	}
 }
 
 /* End of file welcome.php */

@@ -80,15 +80,11 @@
               <img class="card-img-top" width="150" height="150" src="<?php echo base_url() .'upload/'. $key->isi_file ?>" alt="Card image cap">
               <h4 class="card-title"><?php echo $key->nama_file; ?></h4>
               <p class="card-title"><?php echo $key->deskripsi ?></p>
+              <p class="card-title"><b>Lokasi : </b><?php echo $key->lokasi; ?></p>
+              <p class="card-title"><b>Harga : </b>Rp.<?php echo $key->harga ?> / </b><?php echo $key->jenis_tiket ?></p>
             </div>
             <div class="card-footer">
             <a href="home/create_pendaftar/<?php echo $key->id ?>" class="btn btn-primary">Daftar !</a>
-            </div>
-            <div class="card-footer">
-            <a href="home/hapus/<?php echo $key->id ?>" class="btn btn-primary">Hapus</a>
-            </div>
-            <div class="card-footer">
-            <a href="home/create/<?php echo $key->id ?>" class="btn btn-primary">Edit</a>
             </div>
           </div>
         </div>
