@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Admin</title>
+    <title>Halaman Admin</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="<?php echo base_url().'assets/admin/vendor/bootstrap/css/bootstrap.min.css' ?>" rel="stylesheet">
@@ -147,17 +147,17 @@
                                     <?php foreach ($event as $d) : ?>
                                         <tr>
                                         <td><?php echo $d->id ?></td>
-                                        <td><?php echo $d->nama_file ?></td>
+                                        <td><?php echo $d->nama_event ?></td>
                                         <td><?php echo $d->deskripsi ?></td>
-                                        <td><?php echo $d->tgl_file ?></td>
+                                        <td><?php echo $d->tgl_event ?></td>
                                         <td><?php echo $d->waktu ?></td>
-                                        <td><?php echo $d->isi_file ?></td>
+                                        <td><?php echo $d->gambar ?></td>
                                         <td><?php echo $d->jenis_tiket ?></td>
                                         <td><?php echo $d->harga ?></td>
                                         <td><?php echo $d->lokasi ?></td>
                                         <td>
-                                            <a href="<?php echo base_url('/home/edit/') . $d->id ?>" class="btn btn-sm btn-outline-primary">Edit</a> 
-                                            <a href="<?php echo base_url('/home/hapus/') . $d->id ?>" class="btn btn-sm btn-outline-danger">Delete</a> 
+                                            <?php echo anchor('home/edit/'.$d->id,'Edit'); ?> 
+                                            <?php echo anchor('home/hapus/'.$d->id, 'Delete'); ?> 
                                         </td>
                                         </tr>
                                     <?php endforeach; ?> 

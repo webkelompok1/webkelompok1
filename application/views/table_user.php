@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Admin</title>
+    <title>Halaman Admin</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="<?php echo base_url().'assets/admin/vendor/bootstrap/css/bootstrap.min.css' ?>" rel="stylesheet">
@@ -121,111 +121,46 @@
         <div id="page-wrapper">
             <!-- /.row -->
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-12">
                     <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Tambah
-                        </div>
                         <!-- /.panel-heading -->
+                        <div class="panel-heading">
+                            DataTables
+                        </div>
                         <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped">
-                                    <tbody>
-                                      <?php echo (isset($message))? : "";?>
-                                      <?php echo form_open('home/update', array('enctype'=>'multipart/form-data')); ?>
-                                      <?php foreach($user as $u){ ?>     
-                                            <tr>
-                                              <th>Nama Event</th>
-                                              <td>
-                                              <div class="form-group">
-                                              <input class="form-control" type="text" name="nama" value="<?php echo $u->nama_event ?>">
-                                              <input type="hidden" name="id" value="<?php echo $u->id ?>">
-                                              </div>
-                                              </td>
-                                            </tr>
-                                            <tr>
-                                              <th>Deskripsi</th>
-                                              <td>
-                                              <div class="form-group">  
-                                              <textarea class="form-control" name="deskripsi"><?php echo $u->deskripsi ?></textarea>
-                                              </div>
-                                              </td>
-                                            </tr>
-                                            <tr>
-                                              <th>Poster / Gambar</th>
-                                              <td>
-                                              <div class="form-group">
-                                              <input class="form-control" type="file" name="defile">
-                                              </div>
-                                              </td>
-                                            </tr>
-                                            <tr>
-                                                <th>Jenis Tiket</th>
-                                                <td>
-                                                <div class="form-group">
-                                                <input class="form-control" type="text" name="jenis_tiket" value="<?php echo $u->jenis_tiket ?>">
-                                                </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th>Harga Tiket</th>
-                                                <td>
-                                                <div class="form-group">
-                                                <input class="form-control" type="text" name="harga" value="<?php echo $u->harga ?>">
-                                                </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th>Tanggal</th>
-                                                <td>
-                                                <div class="form-group">
-                                                <input class="form-control" type="date" name="tgl" value="<?php echo $u->tgl_event ?>">
-                                                </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th>Waktu</th>
-                                                <td>
-                                                <div class="form-group">
-                                                <input class="form-control" type="time" name="waktu" value="<?php echo $u->waktu ?>">
-                                                </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th>Lokasi</th>
-                                                <td>
-                                                <div class="form-group">
-                                                <textarea class="form-control" name="lokasi" rows="2"><?php echo $u->lokasi ?></textarea>
-                                                </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th>Kategori</th>
-                                                <td>
-                                                <div class="form-group">
-                                                <select class="form-control" name="cat_id">
-                                                  <option value="">Pilih Kategori</option>
-                                                  <?php foreach($categories as $category): ?>
-                                                  <option value="<?php echo $category->id; ?>"><?php echo $category->cat_name; ?></option>
-                                                  <?php endforeach; ?>
-                                                </select>
-                                                </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                              <td colspan="3"><button class="btn btn-default"><input type="submit" name="submit" value="Simpan"></button></td>
-                                            </tr>
-                                            <?php } ?>
-                                      </form>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!-- /.table-responsive -->
+                            <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                <thead>
+                                    <tr>
+                                        <th>ID Pendaftar</th>
+                                        <th>Username</th>
+                                        <th>Nama</th>
+                                        <th>Email</th>
+                                        <th>Level</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                        <?php foreach ($user as $d) : ?>
+                                        <tr>
+                                        <td><?php echo $d->id ?></td>
+                                        <td><?php echo $d->username ?></td>
+                                        <td><?php echo $d->nama ?></td>
+                                        <td><?php echo $d->email ?></td>
+                                        <td><?php echo $d->level ?></td>
+                                        <td>
+                                            <?php echo anchor('home/edit_user/'.$d->id,'Edit'); ?> 
+                                            <?php echo anchor('home/hapus_user/'.$d->id, 'Delete'); ?> 
+                                        </td>
+                                        </tr>
+                                    <?php endforeach; ?> 
+                                </tbody>
+                            </table>
                         </div>
                         <!-- /.panel-body -->
                     </div>
                     <!-- /.panel -->
                 </div>
+                <!-- /.col-lg-12 -->
             </div>
         </div>
         <!-- /#page-wrapper -->

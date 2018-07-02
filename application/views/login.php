@@ -21,8 +21,6 @@
     <!-- Custom styles for this template -->
     <link href="<?php echo base_url().'/assets/css/landing-page.min.css' ?>" rel="stylesheet">
 
-    <link rel="stylesheet" href="<?php echo base_url().'/assets/pagination/vendor/bootstrap/css/bootstrap.min.css' ?>">
-
   </head>
 
   <body>
@@ -41,71 +39,48 @@
             <a class="dropdown-item" href="home/category/<?php echo $key->id ?>"><?=$key->cat_name;?></a>
         <?php } ?>
         </div>
-        <?php if(!$this->session->userdata('logged_in')) : ?>
-            <a class="btn btn-primary" href="user/login">Sign In</a>
-        <?php endif; ?>
-        <?php if($this->session->userdata('logged_in')) : ?>
-            <a class="btn btn-primary" href="user/logout">Logout</a>
-        <?php endif; ?>
+            <a class="btn btn-primary" href="#">Sign In</a>
         </div>
       </div>
     </nav>
 
-    <!-- Masthead -->
-    <header class="masthead text-white text-center">
-      <form action="<?php echo base_url('home/hasil')?>" action="GET">
-      <div class="overlay"></div>
-      <div class="container">
-        <div class="row">
-          <div class="col-xl-9 mx-auto">
-            <h1 class="mb-5">Cari event yang mau kamu datengin Disini !</h1>
-          </div>
-          <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
-              <div class="form-row">
-                <div class="col-12 col-md-9 mb-2 mb-md-0">
-                  <input type="text" name="cari" class="form-control form-control-lg" placeholder="Masukan Keyword...">
-                </div>
-                <div class="col-12 col-md-3">
-                  <button type="submit" class="btn btn-block btn-lg btn-primary">Search</button>
-                </div>
-              </div>
-          </div>
-        </div>
-      </div>
-      </form>
-    </header>
-
+    
     <br>
     <div class="container">
-    <?php if($this->session->flashdata('user_loggedin')): ?>
-    <?php echo '<div class="alert alert-success">'.$this->session->flashdata('user_loggedin').'</div>'; ?>
-    <?php endif; ?>
-
-    <?php if($this->session->flashdata('user_loggedout')): ?>
-    <?php echo '<div class="alert alert-success">'.$this->session->flashdata('user_loggedout').'</div>'; ?>
-    <?php endif; ?>
     <div class="row text-center">
-      <?php foreach ($results as $key) { ?>
-        <div class="col-lg-3 col-md-6 mb-4">
-          <div class="card">
-            <div class="card-body">
-              <img class="card-img-top" width="150" height="150" src="<?php echo base_url() .'upload/'. $key->gambar ?>" alt="Card image cap">
-              <h4 class="card-title"><?php echo $key->nama_event; ?></h4>
-              <p class="card-title"><?php echo $key->deskripsi ?></p>
-              <p class="card-title"><b>Lokasi : </b><?php echo $key->lokasi; ?></p>
-              <p class="card-title"><b>Harga : </b>Rp.<?php echo $key->harga ?> / </b><?php echo $key->jenis_tiket ?></p>
-            </div>
-            <div class="card-footer">
-            <a href="home/create_pendaftar/<?php echo $key->id ?>" class="btn btn-primary">Daftar !</a>
-            </div>
+      <div class="card card-login mx-auto mt-5">
+      <div class="card-header">Login</div>
+      <div class="card-body">
+        <?php echo (isset($message))? : "";?>
+        <?php    
+          $this->form_validation->set_error_delimiters('<div class="alert alert-warning" role="alert">', '</div>');
+        ?>
+
+        <?php echo validation_errors(); ?>
+
+        <?php echo form_open('user/login'); ?>
+
+        <?php if($this->session->flashdata('login_failed')): ?>
+                <?php echo '<div class="alert alert-danger">'.$this->session->flashdata('login_failed').'</div>'; ?>
+        <?php endif; ?>
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input class="form-control" name="username" id="username" type="text"  placeholder="Masukan Username" required autofocus>
           </div>
-        </div>
-      <?php } ?>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input class="form-control" name="password" id="password" type="password" placeholder="Password" required>
+          </div>
+          <button class="btn btn-primary" type="submit">Login</button>
+        <?php echo form_close(); ?>
       </div>
-      <?php if (isset($links)) { ?>
-                <?php echo $links ?>
-      <?php } ?>
-      </div>
+    </div>
+    </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
 
     <!-- Footer -->
     <footer class="footer bg-light">
@@ -157,16 +132,6 @@
     <!-- Bootstrap core JavaScript -->
     <script src="<?php echo base_url().'/assets/vendor/jquery/jquery.min.js' ?>"></script>
     <script src="<?php echo base_url().'/assets/vendor/bootstrap/js/bootstrap.bundle.min.js' ?>"></script>
-
-    <script>
-$(document).ready(function(){
-  $('.dropdown-submenu a.test').on("click", function(e){
-    $(this).next('ul').toggle();
-    e.stopPropagation();
-    e.preventDefault();
-  });
-});
-</script>
 
   </body>
 

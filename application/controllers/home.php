@@ -22,7 +22,7 @@ class Home extends CI_Controller {
         parent::__construct();
  
         // load Pagination library
-        $this->load->library('pagination');
+        $this->load->library('pagination','form_validation');
          
         // load URL helper
         $this->load->helper('url');
@@ -146,6 +146,9 @@ class Home extends CI_Controller {
 
 	public function create()
 	{
+		if(!$this->session->userdata('logged_in')){
+            redirect('user/login');
+        }
 		$this->load->model('category_model');
 		$data['categories'] = $this->category_model->get_all_categories();
 		$data['kategori'] = $this->crud->get_kategori();
@@ -189,7 +192,7 @@ class Home extends CI_Controller {
 		$this->load->model('category_model');
 		$data['categories'] = $this->category_model->get_all_categories();
 		$data['kategori'] = $this->crud->get_kategori();
-		$data['user'] = $this->crud->edit_data($where,'berkas')->result();
+		$data['user'] = $this->crud->edit_data($where,'event')->result();
 		$this->load->helper(array('form', 'url'));
 
         $this->load->library('form_validation');
@@ -214,7 +217,7 @@ class Home extends CI_Controller {
 	{
 		$where = array('id' => $id);
 		$this->load->model('category_model');
-		$data['user'] = $this->crud->edit_data($where,'berkas')->result();
+		$data['user'] = $this->crud->edit_data($where,'event')->result();
 		$this->load->helper(array('form', 'url'));
 
         $this->load->library('form_validation');
@@ -240,7 +243,7 @@ class Home extends CI_Controller {
 	public function edit($id){
 		$where = array('id' => $id);
 		$this->load->model('category_model');
-		$data['user'] = $this->crud->edit_data($where,'berkas')->result();
+		$data['user'] = $this->crud->edit_data($where,'event')->result();
 		$data['kategori'] = $this->crud->get_kategori();
 		$data['categories'] = $this->category_model->get_all_categories();
 		$this->load->view('edit',$data);
@@ -311,9 +314,9 @@ class Home extends CI_Controller {
 
 	if($post_image=='' && $cat_id=='') {
 		$data = array(
-		'nama_file' => $nama,
+		'nama_event' => $nama,
 		'deskripsi' => $deskripsi,
-		'tgl_file' => $tgl,
+		'tgl_event' => $tgl,
 		'waktu' => $waktu,
 		'jenis_tiket' => $jenis_tiket,
 		'harga' => $harga,
@@ -321,11 +324,11 @@ class Home extends CI_Controller {
 		);
 	} else {
 		$data = array(
-		'nama_file' => $nama,
+		'nama_event' => $nama,
 		'deskripsi' => $deskripsi,
-		'tgl_file' => $tgl,
+		'tgl_event' => $tgl,
 		'waktu' => $waktu,
-		'isi_file' => $post_image,
+		'gambar' => $post_image,
 		'jenis_tiket' => $jenis_tiket,
 		'harga' => $harga,
 		'lokasi' => $lokasi,
@@ -340,7 +343,7 @@ class Home extends CI_Controller {
 		'id' => $id
 	);
  
-	$this->crud->update_data($where,$data,'berkas');
+	$this->crud->update_data($where,$data,'event');
 	redirect('home');
 	}
 
@@ -408,15 +411,20 @@ class Home extends CI_Controller {
             	redirect('home','refresh');
     }*/
 
-    public function table()
+    public function table_event()
 	{
 		$data2['event'] = $this->crud->get_dataevent();
-		$this->load->view('tables', $data2);
+		$this->load->view('table_event', $data2);
 	}
-	public function table2()
+	public function table_pendaftar()
 	{
 		$data2['pendaftar'] = $this->crud->get_datapendaftar();
-		$this->load->view('tables2', $data2);
+		$this->load->view('table_pendaftar', $data2);
+	}
+	public function table_user()
+	{
+		$data2['user'] = $this->crud->get_datauser();
+		$this->load->view('table_user', $data2);
 	}
 }
 

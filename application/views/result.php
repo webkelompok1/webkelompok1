@@ -30,6 +30,7 @@
       <div class="container">
         <a class="navbar-brand" href="home">bukanEventBrite</a>
         <div class="dropdown">
+            <a class="btn btn-primary" href="home/create">Buat Event!</a>
             <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
               Kategori
             </button>
@@ -52,8 +53,8 @@
         <div class="col-lg-3 col-md-6 mb-4">
           <div class="card">
             <div class="card-body">
-              <img class="card-img-top" src="<?php echo base_url() .'upload/'. $key->isi_file ?>" alt="Card image cap">
-              <h4 class="card-title"><?php echo $key->nama_file; ?></h4>
+              <img class="card-img-top" src="<?php echo base_url() .'upload/'. $key->gambar ?>" alt="Card image cap">
+              <h4 class="card-title"><?php echo $key->nama_event; ?></h4>
               <p class="card-title"><?php echo $key->deskripsi; ?></p>
               <p class="card-title"><b>Lokasi : </b><?php echo $key->lokasi; ?></p>
               <p class="card-title"><b>Harga : </b>Rp.<?php echo $key->harga ?> / </b><?php echo $key->jenis_tiket ?></p>

@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Admin</title>
+    <title>Halaman Admin</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="<?php echo base_url().'assets/admin/vendor/bootstrap/css/bootstrap.min.css' ?>" rel="stylesheet">
@@ -121,54 +121,56 @@
         <div id="page-wrapper">
             <!-- /.row -->
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-12">
                     <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Tambah Tiket
-                        </div>
                         <!-- /.panel-heading -->
+                        <div class="panel-heading">
+                            DataTables
+                        </div>
                         <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped">
-                                    <tbody>
-                                      <?php echo (isset($message))? : "";?>
-                                      <?php    
-                                        $this->form_validation->set_error_delimiters('<div class="alert alert-warning" role="alert">', '</div>');
-                                      ?>
-                                      <?php echo validation_errors(); ?>
-                                      <?php echo form_open('home/create_tiket', array('enctype'=>'multipart/form-data')); ?>
-                                            <tr>
-                                              <th>Kategori</th>
-                                              <td>
-                                              <div class="form-group">
-                                              <input class="form-control" type="text" name="kategori">
-                                              <?php foreach($user as $u){ ?>
-                                              <input type="hidden" name="id_event" value="<?php echo $u->id ?>">
-                                              <?php } ?>
-                                              </div>
-                                              </td>
-                                            </tr>
-                                            <tr>
-                                              <th>Harga</th>
-                                              <td>
-                                              <div class="form-group">
-                                              <input class="form-control" name="harga" type="text">
-                                              </div>
-                                              </td>
-                                            </tr>
-                                            <tr>
-                                              <td colspan="3"><button class="btn btn-default"><input type="submit" name="submit" value="Simpan"></button></td>
-                                            </tr>
-                                      </form>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!-- /.table-responsive -->
+                            <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                <thead>
+                                    <tr>
+                                        <th>ID Pendaftar</th>
+                                        <th>Nama</th>
+                                        <th>Alamat</th>
+                                        <th>Nomor Telepon</th>
+                                        <th>Email</th>
+                                        <th>Jumlah Tiket</th>
+                                        <th>Jenis Tiket</th>
+                                        <th>Harga</th>
+                                        <th>Total Pembayaran</th>
+                                        <th>ID Event</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                        <?php foreach ($pendaftar as $d) : ?>
+                                        <tr>
+                                        <td><?php echo $d->id ?></td>
+                                        <td><?php echo $d->nama ?></td>
+                                        <td><?php echo $d->alamat ?></td>
+                                        <td><?php echo $d->no_telp ?></td>
+                                        <td><?php echo $d->email ?></td>
+                                        <td><?php echo $d->qty ?></td>
+                                        <td><?php echo $d->jenis_tiket ?></td>
+                                        <td><?php echo $d->harga ?></td>
+                                        <td><?php echo $d->total_harga ?></td>
+                                        <td><?php echo $d->id_event ?></td>
+                                        <td>
+                                            <?php echo anchor('home/edit_pendaftar/'.$d->id,'Edit'); ?> 
+                                            <?php echo anchor('home/hapus_pendaftar/'.$d->id, 'Delete'); ?> 
+                                        </td>
+                                        </tr>
+                                    <?php endforeach; ?> 
+                                </tbody>
+                            </table>
                         </div>
                         <!-- /.panel-body -->
                     </div>
                     <!-- /.panel -->
                 </div>
+                <!-- /.col-lg-12 -->
             </div>
         </div>
         <!-- /#page-wrapper -->

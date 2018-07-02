@@ -9,7 +9,7 @@ class Crud extends CI_Model {
 	public function get_konten($limit, $start)
 	{
 		$this->db->limit($limit, $start);
-        $query = $this->db->get("berkas");
+        $query = $this->db->get("event");
 
 		if ($query->num_rows() > 0) 
         {
@@ -27,7 +27,7 @@ class Crud extends CI_Model {
 	public function get_total() 
     {
         // Dapatkan jumlah total artikel
-        return $this->db->count_all("berkas");
+        return $this->db->count_all("event");
     }
 
 	public function get_kategori()
@@ -38,7 +38,7 @@ class Crud extends CI_Model {
 
 	public function get_kategori_id($category)
 	{
-		$query = $this->db->query('select * from berkas as b join categories as c on b.cat_id=c.id where b.cat_id ='.$category);
+		$query = $this->db->query('select * from event as b join categories as c on b.cat_id=c.id where b.cat_id ='.$category);
 		return $query->result();
 	}
 
@@ -65,18 +65,18 @@ class Crud extends CI_Model {
 	{
 		$data = array(
 			'id' => '',
-			'nama_file' => $this->input->post('nama'),
+			'nama_event' => $this->input->post('nama'),
 			'deskripsi' => $this->input->post('deskripsi'),
-			'tgl_file' => $this->input->post('tgl'),
+			'tgl_event' => $this->input->post('tgl'),
 			'waktu' => $this->input->post('waktu'),
-			'isi_file' => $upload['file']['file_name'],
+			'gambar' => $upload['file']['file_name'],
 			'jenis_tiket' => $this->input->post('jenis_tiket'),
 			'harga' => $this->input->post('harga'),
 			'lokasi' => $this->input->post('lokasi'),
 			'cat_id' => $this->input->post('cat_id')
 		);
 
-		$this->db->insert('berkas', $data);
+		$this->db->insert('event', $data);
 	}
 
 	/*public function insert_tiket()
@@ -124,13 +124,13 @@ class Crud extends CI_Model {
 
 	public function hapusdata($id)
 	{
-		$row = $this->db->where('id',$id)->get('berkas')->row();
+		$row = $this->db->where('id',$id)->get('event')->row();
 
 		$this->db->where('id', $id);
 
 		unlink('upload/'.$row->isi_file);
 
-		$this->db->delete('berkas', array('id' => $id));
+		$this->db->delete('event', array('id' => $id));
 	}
 
 	public function hapusdatapendaftar($id)
@@ -147,19 +147,25 @@ class Crud extends CI_Model {
 	public function cari()
 	{
 		$cari = $this->input->GET('cari', TRUE);
-		$data = $this->db->query("SELECT * from berkas where nama_file like '%$cari%' ");
+		$data = $this->db->query("SELECT * from event where nama_event like '%$cari%' ");
 		return $data->result();
 	}
 
 	public function get_dataevent()
 	{
-		$query = $this->db->get('berkas');
+		$query = $this->db->get('event');
 		return $query->result();
 	}
 
 	public function get_datapendaftar()
 	{
 		$query = $this->db->get('pendaftar');
+		return $query->result();
+	}
+
+	public function get_datauser()
+	{
+		$query = $this->db->get('user');
 		return $query->result();
 	}
 }
