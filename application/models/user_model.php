@@ -31,11 +31,30 @@ class User_model extends CI_Model {
         }
     }
 
-    function get_user_level($user_id)
+    public function edit_data_user($where,$table)
+    {       
+    return $this->db->get_where($table,$where);
+    }
+
+    public function update_data_user($where,$data,$table){
+        $this->db->where($where);
+        $this->db->update($table,$data);
+    }
+
+    public function hapusdatauser($id)
+    {
+        $row = $this->db->where('id',$id)->get('user')->row();
+
+        $this->db->where('id', $id);
+
+        $this->db->delete('user', array('id' => $id));
+    }
+
+    function get_user_level($id)
     {
         // Dapatkan data user berdasar $user_id
         $this->db->select('id_level');
-        $this->db->where('id', $user_id);
+        $this->db->where('id', $id);
 
         $result = $this->db->get('user');
 

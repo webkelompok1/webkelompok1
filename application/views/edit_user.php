@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Halaman Admin</title>
+    <title>Halaman User</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="<?php echo base_url().'assets/admin/vendor/bootstrap/css/bootstrap.min.css' ?>" rel="stylesheet">
@@ -51,7 +51,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Admin</a>
+                <a class="navbar-brand" href="">DASHBOARD?</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -62,10 +62,6 @@
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                        </li>
                         <li class="divider"></li>
                         <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
@@ -94,16 +90,13 @@
                             <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
                         <li>
-                            <a href="tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>
-                        </li>
-                        <li>
-                            <a href="forms.html"><i class="fa fa-edit fa-fw"></i> Forms</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-files-o fa-fw"></i> Sample Pages<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-files-o fa-fw"></i> Tables <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="blank.html">Blank Page</a>
+                                </li>
+                                <li>
+                                    <a href="login.html">Login Page</a>
                                 </li>
                                 <li>
                                     <a href="login.html">Login Page</a>
@@ -121,46 +114,68 @@
         <div id="page-wrapper">
             <!-- /.row -->
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-6">
                     <div class="panel panel-default">
-                        <!-- /.panel-heading -->
                         <div class="panel-heading">
-                            DataTables
+                            Edit User
                         </div>
+                        <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                <thead>
-                                    <tr>
-                                        <th>ID Pendaftar</th>
-                                        <th>Username</th>
-                                        <th>Nama</th>
-                                        <th>Email</th>
-                                        <th>Level</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                        <?php foreach ($user as $d) : ?>
-                                        <tr>
-                                        <td><?php echo $d->id ?></td>
-                                        <td><?php echo $d->username ?></td>
-                                        <td><?php echo $d->nama ?></td>
-                                        <td><?php echo $d->email ?></td>
-                                        <td><?php echo $d->id_level ?></td>
-                                        <td>
-                                            <?php echo anchor('user/edit_user/'.$d->id,'Edit'); ?> 
-                                            <?php echo anchor('user/hapus_user/'.$d->id, 'Delete'); ?> 
-                                        </td>
-                                        </tr>
-                                    <?php endforeach; ?> 
-                                </tbody>
-                            </table>
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <tbody>
+                                      <?php echo (isset($message))? : "";?>
+                                      <?php echo form_open('user/update_user', array('enctype'=>'multipart/form-data')); ?>
+                                      <?php foreach($user as $u){ ?>
+                                            <tr>
+                                              <th>Username</th>
+                                              <td>
+                                              <div class="form-group">
+                                              <input class="form-control" type="text" name="username" value="<?php echo $u->username ?>">
+                                              <input type="hidden" name="id" value="<?php echo $u->id ?>">
+                                              </div>
+                                              </td>
+                                            </tr>
+                                            <tr>
+                                              <th>Password</th>
+                                              <td>
+                                              <div class="form-group">
+                                              <input class="form-control" type="password" name="password">
+                                              <p>Note : Jika ingin ganti Password maka isi field berikut, jika tidak abaikan</p>
+                                              </div>
+                                              </td>
+                                            </tr>
+                                            <tr>
+                                              <th>Nama</th>
+                                              <td>
+                                              <div class="form-group">
+                                              <input class="form-control" type="text" name="nama" value="<?php echo $u->nama ?>">
+                                              </div>
+                                              </td>
+                                            </tr>
+                                            <tr>
+                                              <th>Email</th>
+                                              <td>
+                                            <div class="form-group input-group">
+                                            <span class="input-group-addon">@</span>
+                                            <input type="email" class="form-control" name="email" value="<?php echo $u->email ?>">
+                                            </div>
+                                            </td>
+                                            </tr>
+                                            <tr>
+                                              <td colspan="3"><button class="btn btn-default"><input type="submit" name="submit" value="Simpan"></button></td>
+                                            </tr>
+                                            <?php } ?>
+                                      </form>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
                         </div>
                         <!-- /.panel-body -->
                     </div>
                     <!-- /.panel -->
                 </div>
-                <!-- /.col-lg-12 -->
             </div>
         </div>
         <!-- /#page-wrapper -->

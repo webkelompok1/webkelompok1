@@ -64,11 +64,12 @@ class User extends CI_Controller{
 
 	if($id){
 		// Buat session
+		$level = $this->user_model->get_user_level($id);
 		$user_data = array(
 			'id' => $id,
 			'username' => $username,
 			'logged_in' => true,
-			'level' => $this->user_model->get_user_level($user_id)	
+			'level' => $level->id_level	
 		);
 
 		$this->session->set_userdata($user_data);
@@ -92,11 +93,55 @@ class User extends CI_Controller{
 		$this->session->unset_userdata('logged_in');
 		$this->session->unset_userdata('user_id');
 		$this->session->unset_userdata('username');
+		$this->session->unset_userdata('level');
 
 		// Set message
 		$this->session->set_flashdata('user_loggedout', 'Anda sudah log out');
 
 		redirect('user/login');
+	}
+
+	public function edit_user($id){
+		$where = array('id' => $id);
+		$data['user'] = $this->user_model->edit_data_user($where,'user')->result();
+		$this->load->view('edit_user',$data);
+	}
+
+	public function update_user(){
+	
+	$id = $this->input->post('id');
+	$username = $this->input->post('username');
+	$password = md5($this->input->post('password'));
+	$nama = $this->input->post('nama');
+	$email = $this->input->post('email');
+ 	
+	if($password == ''){
+		$data = array(
+		'username' => $username,
+		'nama' => $nama,
+		'email' => $email
+		);
+	} else {
+		$data = array(
+		'username' => $username,
+		'password' => $password,
+		'nama' => $nama,
+		'email' => $email
+		);
+	}
+ 
+	$where = array(
+		'id' => $id
+	);
+ 
+	$this->user_model->update_data_user($where,$data,'user');
+	redirect('home/table_user');
+	}
+
+	public function hapus_user($id)
+	{
+		$this->user_model->hapusdatauser($id);
+		redirect('table_user');
 	}
 
 	function dashboard()

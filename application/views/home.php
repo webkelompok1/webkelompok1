@@ -32,8 +32,7 @@
       <div class="container">
         <a class="navbar-brand" href="home">bukanEventBrite</a>
         <div class="dropdown">
-            <a class="btn btn-primary" href="home/create">Buat Event!</a>
-            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
               Kategori
             </button>
         <div class="dropdown-menu">
@@ -41,6 +40,21 @@
             <a class="dropdown-item" href="home/category/<?php echo $key->id ?>"><?=$key->cat_name;?></a>
         <?php } ?>
         </div>
+        <?php if(!$this->session->userdata('logged_in')) : ?>
+            <a class="btn btn-primary" href="user/create_user">Buat Akun!</a>
+        <?php endif; ?>
+        <?php if($this->session->userdata('level') == 1) { ?>
+            <a class="btn btn-primary" href="home/halaman_admin">Dashboard</a>
+        <?php } ?>
+        <?php if($this->session->userdata('level') == 2) { ?>
+            <a class="btn btn-primary" href="home/halaman_user/<?php echo $this->session->userdata('id') ?>">Dashboard</a>
+        <?php } ?>
+        <?php if($this->session->userdata('level') == 3) { ?>
+            <a class="btn btn-primary" href="home/data_user/<?php echo $this->session->userdata('id') ?>">Data Diri</a>
+        <?php } ?>
+        <?php if($this->session->userdata('level') != 3) { ?>
+            <a class="btn btn-primary" href="home/create">Buat Event!</a>
+        <?php } ?>
         <?php if(!$this->session->userdata('logged_in')) : ?>
             <a class="btn btn-primary" href="user/login">Sign In</a>
         <?php endif; ?>
@@ -81,9 +95,6 @@
     <?php echo '<div class="alert alert-success">'.$this->session->flashdata('user_loggedin').'</div>'; ?>
     <?php endif; ?>
 
-    <?php if($this->session->flashdata('user_loggedout')): ?>
-    <?php echo '<div class="alert alert-success">'.$this->session->flashdata('user_loggedout').'</div>'; ?>
-    <?php endif; ?>
     <div class="row text-center">
       <?php foreach ($results as $key) { ?>
         <div class="col-lg-3 col-md-6 mb-4">

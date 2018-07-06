@@ -39,7 +39,12 @@
             <a class="dropdown-item" href="home/category/<?php echo $key->id ?>"><?=$key->cat_name;?></a>
         <?php } ?>
         </div>
-            <a class="btn btn-primary" href="#">Sign In</a>
+        <?php if(!$this->session->userdata('logged_in')) : ?>
+            <a class="btn btn-primary" href="user/login">Sign In</a>
+        <?php endif; ?>
+        <?php if($this->session->userdata('logged_in')) : ?>
+            <a class="btn btn-primary" href="user/logout">Logout</a>
+        <?php endif; ?>
         </div>
       </div>
     </nav>
@@ -47,6 +52,9 @@
     
     <br>
     <div class="container">
+    <?php if($this->session->flashdata('user_loggedout')): ?>
+    <?php echo '<div class="alert alert-success">'.$this->session->flashdata('user_loggedout').'</div>'; ?>
+    <?php endif; ?>
     <div class="row text-center">
       <div class="card card-login mx-auto mt-5">
       <div class="card-header">Login</div>
@@ -69,7 +77,7 @@
           </div>
           <div class="form-group">
             <label for="password">Password</label>
-            <input class="form-control" name="password" id="password" type="password" placeholder="Password" required>
+            <input class="form-control" name="password" id="password" type="password" placeholder="Masukan Password" required>
           </div>
           <button class="btn btn-primary" type="submit">Login</button>
         <?php echo form_close(); ?>

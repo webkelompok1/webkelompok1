@@ -73,7 +73,8 @@ class Crud extends CI_Model {
 			'jenis_tiket' => $this->input->post('jenis_tiket'),
 			'harga' => $this->input->post('harga'),
 			'lokasi' => $this->input->post('lokasi'),
-			'cat_id' => $this->input->post('cat_id')
+			'cat_id' => $this->input->post('cat_id'),
+			'id_user' => $this->input->post('id')
 		);
 
 		$this->db->insert('event', $data);
@@ -122,6 +123,16 @@ class Crud extends CI_Model {
 		$this->db->update($table,$data);
 	}
 
+	public function edit_data_pendaftar($where,$table)
+	{		
+	return $this->db->get_where($table,$where);
+	}
+
+	public function update_data_pendaftar($where,$data,$table){
+		$this->db->where($where);
+		$this->db->update($table,$data);
+	}
+
 	public function hapusdata($id)
 	{
 		$row = $this->db->where('id',$id)->get('event')->row();
@@ -166,6 +177,18 @@ class Crud extends CI_Model {
 	public function get_datauser()
 	{
 		$query = $this->db->get('user');
+		return $query->result();
+	}
+
+	public function get_data_event($id)
+	{
+		$query = $this->db->query('select * from event where id_user ='.$id);
+		return $query->result();
+	}
+
+	public function get_data_pendaftar($id)
+	{
+		$query = $this->db->query('select * from pendaftar where id_event ='.$id);
 		return $query->result();
 	}
 }

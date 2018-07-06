@@ -33,7 +33,7 @@ class Home extends CI_Controller {
 	{
         $this->load->model('crud');
 		$params = array();
-        $limit_per_page = 1;
+        $limit_per_page = 2;
         $start_index = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
         $total_records = $this->crud->get_total();
  
@@ -146,10 +146,12 @@ class Home extends CI_Controller {
 
 	public function create()
 	{
-		if(!$this->session->userdata('logged_in')){
-            redirect('user/login');
+        if(!$this->session->userdata('logged_in')){
+        	redirect('user/login');
         }
+
 		$this->load->model('category_model');
+		$data['id'] = $this->session->userdata('id');
 		$data['categories'] = $this->category_model->get_all_categories();
 		$data['kategori'] = $this->crud->get_kategori();
 		$this->load->helper(array('form', 'url'));
@@ -215,6 +217,10 @@ class Home extends CI_Controller {
 
 	public function create_pendaftar($id)
 	{
+		if(!$this->session->userdata('logged_in')){
+			redirect('user/login');
+		}
+
 		$where = array('id' => $id);
 		$this->load->model('category_model');
 		$data['user'] = $this->crud->edit_data($where,'event')->result();
@@ -241,6 +247,11 @@ class Home extends CI_Controller {
 	}
 
 	public function edit($id){
+
+		if($this->session->userdata('level') == 3){
+        	redirect('user/login');
+        }
+
 		$where = array('id' => $id);
 		$this->load->model('category_model');
 		$data['user'] = $this->crud->edit_data($where,'event')->result();
@@ -344,13 +355,17 @@ class Home extends CI_Controller {
 	);
  
 	$this->crud->update_data($where,$data,'event');
-	redirect('home');
+	redirect('table_event');
 	}
 
 	public function edit_pendaftar($id){
+		if($this->session->userdata('level') != 1){
+        	redirect('user/login');
+        }
+
 		$this->load->model('crud');
 		$where = array('id' => $id);
-		$data['user'] = $this->crud->edit_data($where,'pendaftar')->result();
+		$data['user'] = $this->crud->edit_data_pendaftar($where,'pendaftar')->result();
 		$this->load->view('edit_pendaftar',$data);
 	}
 
@@ -374,20 +389,24 @@ class Home extends CI_Controller {
 		'id' => $id
 	);
  
-	$this->crud->update_data($where,$data,'pendaftar');
-	redirect('home');
+	$this->crud->update_data_pendaftar($where,$data,'pendaftar');
+	redirect('table_pendaftar');
 	}
 
 	public function hapus($id)
 	{
+		if($this->session->userdata('level') == 3){
+        	redirect('user/login');
+        }
+
 		$this->crud->hapusdata($id);
-		redirect('home');
+		redirect('table_event');
 	}
 
 	public function hapus_pendaftar($id)
 	{
 		$this->crud->hapusdatapendaftar($id);
-		redirect('home');
+		redirect('table_pendaftar');
 	}
 
 	public function cari() 
@@ -413,6 +432,10 @@ class Home extends CI_Controller {
 
     public function table_event()
 	{
+		if($this->session->userdata('level') == 3){
+        	redirect('user/login');
+        }
+
 		$data2['event'] = $this->crud->get_dataevent();
 		$this->load->view('table_event', $data2);
 	}
@@ -425,6 +448,29 @@ class Home extends CI_Controller {
 	{
 		$data2['user'] = $this->crud->get_datauser();
 		$this->load->view('table_user', $data2);
+	}
+
+	public function daftar_event($id)
+	{
+		$data2['event'] = $this->crud->get_data_event($id);
+		$this->load->view('table_event_user', $data2);
+	}
+
+	public function daftar_pendaftar($id)
+	{
+		$data2['pendaftar'] = $this->crud->get_data_pendaftar($id);
+		$this->load->view('table_pendaftar_user', $data2);
+	}
+
+	public function halaman_user($id)
+	{
+		$data2['event'] = $this->crud->get_data_event($id);
+        $this->load->view('hal_user', $data2);
+	}
+
+	public function halaman_admin()
+	{
+        $this->load->view('admin');
 	}
 }
 
