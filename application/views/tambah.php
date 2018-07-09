@@ -30,8 +30,7 @@
       <div class="container">
         <a class="navbar-brand" href="home">bukanEventBrite</a>
         <div class="dropdown">
-            <a class="btn btn-primary" href="home/create">Buat Event!</a>
-            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
               Kategori
             </button>
         <div class="dropdown-menu">
@@ -39,7 +38,27 @@
             <a class="dropdown-item" href="home/category/<?php echo $key->id ?>"><?=$key->cat_name;?></a>
         <?php } ?>
         </div>
-            <a class="btn btn-primary" href="#">Sign In</a>
+        <?php if(!$this->session->userdata('logged_in')) : ?>
+            <a class="btn btn-primary" href="user/create_user">Buat Akun!</a>
+        <?php endif; ?>
+        <?php if($this->session->userdata('level') == 1) { ?>
+            <a class="btn btn-primary" href="home/halaman_admin">Dashboard</a>
+        <?php } ?>
+        <?php if($this->session->userdata('level') == 2) { ?>
+            <a class="btn btn-primary" href="home/halaman_user/<?php echo $this->session->userdata('id') ?>">Dashboard</a>
+        <?php } ?>
+        <?php if($this->session->userdata('level') == 3) { ?>
+            <a class="btn btn-primary" href="user/edit_data_user/<?php echo $this->session->userdata('id') ?>">Data Diri</a>
+        <?php } ?>
+        <?php if($this->session->userdata('level') != 3) { ?>
+            <a class="btn btn-primary" href="home/create">Buat Event!</a>
+        <?php } ?>
+        <?php if(!$this->session->userdata('logged_in')) : ?>
+            <a class="btn btn-primary" href="user/login">Sign In</a>
+        <?php endif; ?>
+        <?php if($this->session->userdata('logged_in')) : ?>
+            <a class="btn btn-primary" href="user/logout">Logout</a>
+        <?php endif; ?>
         </div>
       </div>
     </nav>
@@ -62,7 +81,7 @@
                                               <td>
                                               <input type="hidden" name="id" value="<?php echo $id ?>">
                                               <div class="form-group">
-                                              <input class="form-control" type="text" name="nama">
+                                              <input class="form-control" type="text" value="<?php echo set_value('nama') ?>" name="nama">
                                               </div>
                                               </td>
                                             </tr>
@@ -70,7 +89,7 @@
                                               <th>Deskripsi</th>
                                               <td>
                                               <div class="form-group">  
-                                              <textarea class="form-control" name="deskripsi"></textarea>
+                                              <textarea class="form-control" value="<?php echo set_value('deskripsi') ?>" name="deskripsi"></textarea>
                                               </div>
                                               </td>
                                             </tr>
@@ -78,7 +97,7 @@
                                               <th>Poster / Gambar</th>
                                               <td>
                                               <div class="form-group">
-                                              <input class="form-control" type="file" name="defile">
+                                              <input class="form-control" value="<?php echo set_value('defile') ?>" type="file" name="defile">
                                               </div>
                                               </td>
                                             </tr>
@@ -86,7 +105,7 @@
                                                 <th>Jenis Tiket</th>
                                                 <td>
                                                 <div class="form-group">
-                                                <input class="form-control" type="text" name="jenis_tiket">
+                                                <input class="form-control" value="<?php echo set_value('jenis_tiket') ?>" type="text" name="jenis_tiket">
                                                 </div>
                                                 </td>
                                             </tr>
@@ -94,7 +113,7 @@
                                                 <th>Harga Tiket</th>
                                                 <td>
                                                 <div class="form-group">
-                                                <input class="form-control" type="text" name="harga">
+                                                <input class="form-control" value="<?php echo set_value('harga') ?>" type="text" name="harga">
                                                 </div>
                                                 </td>
                                             </tr>
@@ -102,7 +121,7 @@
                                                 <th>Tanggal</th>
                                                 <td>
                                                 <div class="form-group">
-                                                <input class="form-control" type="date" name="tgl">
+                                                <input class="form-control" value="<?php echo set_value('tgl') ?>" type="date" name="tgl">
                                                 </div>
                                                 </td>
                                             </tr>
@@ -110,7 +129,7 @@
                                                 <th>Waktu</th>
                                                 <td>
                                                 <div class="form-group">
-                                                <input class="form-control" type="time" name="waktu">
+                                                <input class="form-control" value="<?php echo set_value('waktu') ?>" type="time" name="waktu">
                                                 </div>
                                                 </td>
                                             </tr>
@@ -118,7 +137,7 @@
                                                 <th>Lokasi</th>
                                                 <td>
                                                 <div class="form-group">
-                                                <textarea class="form-control" name="lokasi" rows="2"></textarea>
+                                                <textarea class="form-control" value="<?php echo set_value('lokasi') ?>" name="lokasi" rows="2"></textarea>
                                                 </div>
                                                 </td>
                                             </tr>

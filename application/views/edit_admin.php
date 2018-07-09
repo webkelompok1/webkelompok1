@@ -9,13 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <?php if($this->session->userdata('level') == 1) { ?>
     <title>Halaman Admin</title>
-    <?php } ?>
-    <?php if($this->session->userdata('level') == 2) { ?>
-    <title>Halaman User</title>
-    <?php } ?>
-
 
     <!-- Bootstrap Core CSS -->
     <link href="<?php echo base_url().'assets/admin/vendor/bootstrap/css/bootstrap.min.css' ?>" rel="stylesheet">
@@ -57,13 +51,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <?php if($this->session->userdata('level') == 1) { ?>
                 <a class="navbar-brand">Admin</a>
-                <?php } ?>
-                <?php if($this->session->userdata('level') == 2) { ?>
-                <a class="navbar-brand">Welcome <b><?php echo $this->session->userdata('username') ?></b></a>
-                <?php } ?>
-                
             </div>
             <!-- /.navbar-header -->
 
@@ -83,7 +71,7 @@
                 <!-- /.dropdown -->
             </ul>
             <!-- /.navbar-top-links -->
-            <?php if($this->session->userdata('level') == 1) { ?>
+
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
@@ -112,25 +100,6 @@
                 </div>
                 <!-- /.sidebar-collapse -->
             </div>
-            <?php } ?>
-            <?php if($this->session->userdata('level') == 2) { ?>
-            <div class="navbar-default sidebar" role="navigation">
-                <div class="sidebar-nav navbar-collapse">
-                    <ul class="nav" id="side-menu">
-                        <li>
-                         <?php echo anchor('home','Halaman Utama'); ?>
-                        </li>
-                        <li>
-                        <?php echo anchor('home/halaman_user/'.$this->session->userdata('id'),'Halaman Dashboard'); ?>
-                        </li>
-                        <li>
-                        <?php echo anchor('home/daftar_event/'.$this->session->userdata('id'),'Data Event'); ?>
-                        </li>
-                    </ul>
-                </div>
-                <!-- /.sidebar-collapse -->
-            </div>
-            <?php } ?>
             <!-- /.navbar-static-side -->
         </nav>
 
@@ -140,7 +109,7 @@
                 <div class="col-lg-6">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Edit Event
+                            Edit User
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
@@ -148,85 +117,42 @@
                                 <table class="table table-striped">
                                     <tbody>
                                       <?php echo (isset($message))? : "";?>
-                                      <?php echo form_open('home/update', array('enctype'=>'multipart/form-data')); ?>
-                                      <?php foreach($user as $u){ ?>     
+                                      <?php echo form_open('user/update_admin', array('enctype'=>'multipart/form-data')); ?>
+                                      <?php foreach($user as $u){ ?>
                                             <tr>
-                                              <th>Nama Event</th>
+                                              <th>Username</th>
                                               <td>
                                               <div class="form-group">
-                                              <input class="form-control" type="text" name="nama" value="<?php echo $u->nama_event ?>">
+                                              <input class="form-control" type="text" name="username" value="<?php echo $u->username ?>">
                                               <input type="hidden" name="id" value="<?php echo $u->id ?>">
                                               </div>
                                               </td>
                                             </tr>
                                             <tr>
-                                              <th>Deskripsi</th>
-                                              <td>
-                                              <div class="form-group">  
-                                              <textarea class="form-control" name="deskripsi"><?php echo $u->deskripsi ?></textarea>
-                                              </div>
-                                              </td>
-                                            </tr>
-                                            <tr>
-                                              <th>Poster / Gambar</th>
+                                              <th>Password</th>
                                               <td>
                                               <div class="form-group">
-                                              <input class="form-control" type="file" name="isi_file">
+                                              <input class="form-control" type="password" name="password">
+                                              <p>Note : Jika ingin ganti Password maka isi field berikut, jika tidak abaikan</p>
                                               </div>
                                               </td>
                                             </tr>
                                             <tr>
-                                                <th>Jenis Tiket</th>
-                                                <td>
-                                                <div class="form-group">
-                                                <input class="form-control" type="text" name="jenis_tiket" value="<?php echo $u->jenis_tiket ?>">
-                                                </div>
-                                                </td>
+                                              <th>Nama</th>
+                                              <td>
+                                              <div class="form-group">
+                                              <input class="form-control" type="text" name="nama" value="<?php echo $u->nama ?>">
+                                              </div>
+                                              </td>
                                             </tr>
                                             <tr>
-                                                <th>Harga Tiket</th>
-                                                <td>
-                                                <div class="form-group">
-                                                <input class="form-control" type="text" name="harga" value="<?php echo $u->harga ?>">
-                                                </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th>Tanggal</th>
-                                                <td>
-                                                <div class="form-group">
-                                                <input class="form-control" type="date" name="tgl" value="<?php echo $u->tgl_event ?>">
-                                                </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th>Waktu</th>
-                                                <td>
-                                                <div class="form-group">
-                                                <input class="form-control" type="time" name="waktu" value="<?php echo $u->waktu ?>">
-                                                </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th>Lokasi</th>
-                                                <td>
-                                                <div class="form-group">
-                                                <textarea class="form-control" name="lokasi" rows="2"><?php echo $u->lokasi ?></textarea>
-                                                </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th>Kategori</th>
-                                                <td>
-                                                <div class="form-group">
-                                                <select class="form-control" name="cat_id">
-                                                  <option value="">Pilih Kategori</option>
-                                                  <?php foreach($categories as $category): ?>
-                                                  <option value="<?php echo $category->id; ?>"><?php echo $category->cat_name; ?></option>
-                                                  <?php endforeach; ?>
-                                                </select>
-                                                </div>
-                                                </td>
+                                              <th>Email</th>
+                                              <td>
+                                            <div class="form-group input-group">
+                                            <span class="input-group-addon">@</span>
+                                            <input type="email" class="form-control" name="email" value="<?php echo $u->email ?>">
+                                            </div>
+                                            </td>
                                             </tr>
                                             <tr>
                                               <td colspan="3"><button class="btn btn-default"><input type="submit" name="submit" value="Simpan"></button></td>

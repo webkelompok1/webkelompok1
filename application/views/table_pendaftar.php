@@ -63,7 +63,7 @@
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li class="divider"></li>
-                        <li><a href="user/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li><?php echo anchor('user/logout','Logout'); ?>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -76,22 +76,22 @@
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>
-                            <a href="home"><i class="fa fa-dashboard fa-fw"></i>Halaman Utama</a>
+                            <?php echo anchor('home','Halaman Utama'); ?>
                         </li>
                         <li>
-                            <a href="halaman_admin"><i class="fa fa-table fa-fw"></i>Halaman Dashboard</a>
+                            <?php echo anchor('home/halaman_admin','Halaman Dashboard'); ?>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-files-o fa-fw"></i>Daftar Table<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="table_event">Daftar Event</a>
+                                    <?php echo anchor('home/table_event','Table Event'); ?>
                                 </li>
                                 <li>
-                                    <a href="table_pendaftar">Daftar Pendaftar</a>
+                                    <?php echo anchor('home/table_pendaftar','Table Pendaftar'); ?>
                                 </li>
                                 <li>
-                                    <a href="table_user">Daftar User</a>
+                                    <?php echo anchor('home/table_user','Table User'); ?>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

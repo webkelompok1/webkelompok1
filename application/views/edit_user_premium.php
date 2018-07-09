@@ -29,6 +29,12 @@
     <!-- Custom Fonts -->
     <link href="<?php echo base_url().'assets/admin/vendor/font-awesome/css/font-awesome.min.css' ?>" rel="stylesheet" type="text/css">
 
+    <style>
+    .navbar-default{
+        background-color: lightblue;
+    }
+    </style>
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -51,7 +57,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="">DASHBOARD?</a>
+                <a class="navbar-brand">Welcome <b><?php echo $this->session->userdata('username') ?></a>
             </div>
             <!-- /.navbar-header -->
 
@@ -63,7 +69,7 @@
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li><?php echo anchor('user/logout','Logout'); ?>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -75,31 +81,25 @@
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
-                        <li class="sidebar-search">
-                            <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Search...">
-                                <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </span>
-                            </div>
-                            <!-- /input-group -->
+                        <li>
+                         <?php echo anchor('home','Halaman Utama'); ?>
                         </li>
                         <li>
-                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                        <?php echo anchor('home/halaman_user/'.$this->session->userdata('id'),'Halaman Dashboard'); ?>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-files-o fa-fw"></i> Tables <span class="fa arrow"></span></a>
+                        <?php echo anchor('home/daftar_event/'.$this->session->userdata('id'),'Data Event'); ?>
+                        </li>
+                        <li>
+                        <?php echo anchor('user/edit_user_premium/'.$this->session->userdata('id'),'Data User'); ?>
+                        </li>
+                        <li>
+                            <a href="">Data Pendaftar (Berdasarkan Event)<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="blank.html">Blank Page</a>
-                                </li>
-                                <li>
-                                    <a href="login.html">Login Page</a>
-                                </li>
-                                <li>
-                                    <a href="login.html">Login Page</a>
+                                    <?php foreach ($event as $key) { ?>
+                                    <?php echo anchor('home/daftar_pendaftar/'.$key->id,$key->nama_event); ?>
+                                    <?php } ?>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -125,7 +125,7 @@
                                 <table class="table table-striped">
                                     <tbody>
                                       <?php echo (isset($message))? : "";?>
-                                      <?php echo form_open('user/update_user', array('enctype'=>'multipart/form-data')); ?>
+                                      <?php echo form_open('user/update_user_premium', array('enctype'=>'multipart/form-data')); ?>
                                       <?php foreach($user as $u){ ?>
                                             <tr>
                                               <th>Username</th>

@@ -9,6 +9,7 @@ class User extends CI_Controller{
 				
 		$this->load->library('form_validation');
 		$this->load->model('user_model');
+		$this->load->model('crud');
 		$this->load->model('category_model');
 	}
 
@@ -18,7 +19,7 @@ class User extends CI_Controller{
 		$data['kategori'] = $this->crud->get_kategori();
 		$this->load->helper(array('form', 'url'));
 
-                $this->form_validation->set_rules('username', 'Username', 'required|is_unique[user.username]');
+                $this->form_validation->set_rules('username', 'Username', 'required|min_length[5]|max_length[10]|is_unique[user.username]');
                 $this->form_validation->set_rules('password', 'password', 'required');
                 $this->form_validation->set_rules('password2', 'Konfirmasi Password', 'required|matches[password]');
                 $this->form_validation->set_rules('nama', 'Nama', 'required');
@@ -44,14 +45,14 @@ class User extends CI_Controller{
 	public function login(){
 
 		$this->load->helper(array('form', 'url'));
-
+		$data['kategori'] = $this->crud->get_kategori();
         $this->load->library('form_validation');
 
 		$this->form_validation->set_rules('username', 'Username', 'required');
 		$this->form_validation->set_rules('password', 'Password', 'required');
 
 		if($this->form_validation->run() === FALSE){
-			$this->load->view('login');
+			$this->load->view('login',$data);
 		} else {
 			
 	// Get username
@@ -101,13 +102,14 @@ class User extends CI_Controller{
 		redirect('user/login');
 	}
 
-	public function edit_user($id){
+	public function edit_admin($id){
 		$where = array('id' => $id);
+		$data['kategori'] = $this->crud->get_kategori();
 		$data['user'] = $this->user_model->edit_data_user($where,'user')->result();
-		$this->load->view('edit_user',$data);
+		$this->load->view('edit_admin',$data);
 	}
 
-	public function update_user(){
+	public function update_admin(){
 	
 	$id = $this->input->post('id');
 	$username = $this->input->post('username');
@@ -115,7 +117,7 @@ class User extends CI_Controller{
 	$nama = $this->input->post('nama');
 	$email = $this->input->post('email');
  	
-	if($password == ''){
+	if($this->input->post('password')==""){
 		$data = array(
 		'username' => $username,
 		'nama' => $nama,
@@ -138,24 +140,85 @@ class User extends CI_Controller{
 	redirect('home/table_user');
 	}
 
+	public function edit_user_premium($id){
+		$where = array('id' => $id);
+		$data['event'] = $this->crud->get_data_event($id);
+		$data['user'] = $this->user_model->edit_data_user($where,'user')->result();
+		$this->load->view('edit_user_premium',$data);
+	}
+
+	public function update_user_premium(){
+	
+	$id = $this->input->post('id');
+	$username = $this->input->post('username');
+	$password = md5($this->input->post('password'));
+	$nama = $this->input->post('nama');
+	$email = $this->input->post('email');
+ 	
+	if($this->input->post('password')==""){
+		$data = array(
+		'username' => $username,
+		'nama' => $nama,
+		'email' => $email
+		);
+	} else {
+		$data = array(
+		'username' => $username,
+		'password' => $password,
+		'nama' => $nama,
+		'email' => $email
+		);
+	}
+ 
+	$where = array(
+		'id' => $id
+	);
+ 
+	$this->user_model->update_data_user($where,$data,'user');
+	redirect('home/halaman_user/'.$this->session->userdata('id'));
+	}
+
+	public function edit_user_regular($id){
+		$where = array('id' => $id);
+		$data['kategori'] = $this->crud->get_kategori();
+		$data['user'] = $this->user_model->edit_data_user($where,'user')->result();
+		$this->load->view('edit_user_regular',$data);
+	}
+
+	public function update_user_regular(){
+	
+	$id = $this->input->post('id');
+	$username = $this->input->post('username');
+	$password = md5($this->input->post('password'));
+	$nama = $this->input->post('nama');
+	$email = $this->input->post('email');
+ 	
+	if($this->input->post('password')==""){
+		$data = array(
+		'username' => $username,
+		'nama' => $nama,
+		'email' => $email
+		);
+	} else {
+		$data = array(
+		'username' => $username,
+		'password' => $password,
+		'nama' => $nama,
+		'email' => $email
+		);
+	}
+ 
+	$where = array(
+		'id' => $id
+	);
+ 
+	$this->user_model->update_data_user($where,$data,'user');
+	redirect('home');
+	}
+
 	public function hapus_user($id)
 	{
 		$this->user_model->hapusdatauser($id);
-		redirect('table_user');
-	}
-
-	function dashboard()
-	{
-		// Must login
-		if(!$this->session->userdata('logged_in')) 
-			redirect('login');
-
-		$user_id = $this->session->userdata('user_id');
-
-		// Dapatkan detail dari User
-		$data['user'] = $this->user_model->get_user_details( $user_id );
-
-		// Load view
-		$this->load->view('dashboard', $data, FALSE);
+		redirect('home/table_user');
 	}
 }

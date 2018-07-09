@@ -50,7 +50,7 @@
             <a class="btn btn-primary" href="home/halaman_user/<?php echo $this->session->userdata('id') ?>">Dashboard</a>
         <?php } ?>
         <?php if($this->session->userdata('level') == 3) { ?>
-            <a class="btn btn-primary" href="home/data_user/<?php echo $this->session->userdata('id') ?>">Data Diri</a>
+            <a class="btn btn-primary" href="user/edit_data_user/<?php echo $this->session->userdata('id') ?>">Data Diri</a>
         <?php } ?>
         <?php if($this->session->userdata('level') != 3) { ?>
             <a class="btn btn-primary" href="home/create">Buat Event!</a>

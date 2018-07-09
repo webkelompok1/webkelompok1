@@ -35,7 +35,7 @@
             </button>
         <div class="dropdown-menu">
         <?php foreach ($kategori as $key) {?>
-            <a class="dropdown-item"><?php echo anchor('home/category/'.$key->id,$key->cat_name); ?></a>
+            <a class="dropdown-item" href="home/category/<?php echo $key->id ?>"><?=$key->cat_name;?></a>
         <?php } ?>
         </div>
         <?php if(!$this->session->userdata('logged_in')) : ?>
@@ -66,24 +66,58 @@
     
     <br>
     <div class="container">
-    <div class="row text-center">
-      <?php foreach ($detail as $key) { ?>
-        <div class="col-lg-3 col-md-6 mb-4">
-          <div class="card">
-            <div class="card-body">
-              <img class="card-img-top" src="<?php echo base_url() .'upload/'. $key->gambar ?>" alt="Card image cap">
-              <h4 class="card-title"><?php echo $key->nama_event; ?></h4>
-              <p class="card-title"><?php echo $key->deskripsi; ?></p>
-              <p class="card-title"><b>Lokasi : </b><?php echo $key->lokasi; ?></p>
-              <p class="card-title"><b>Harga : Rp.</b>Rp.<?php echo $key->harga ?> / </b><?php echo $key->jenis_tiket ?></p>
-            </div>
-            <div class="card-footer">
-            <a href="home/create_pendaftar/<?php echo $key->id ?>" class="btn btn-primary">Daftar !</a>
-            </div>
-          </div>
-        </div>
-      <?php } ?>
-      </div>
+                            <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <tbody>
+                                      <?php echo (isset($message))? : "";?>
+                                      <?php echo form_open('user/update_data_user', array('enctype'=>'multipart/form-data')); ?>
+                                      <?php foreach($user as $u){ ?>
+                                            <tr>
+                                              <th>Username</th>
+                                              <td>
+                                              <div class="form-group">
+                                              <input class="form-control" type="text" name="username" value="<?php echo $u->username ?>">
+                                              <input type="hidden" name="id" value="<?php echo $u->id ?>">
+                                              </div>
+                                              </td>
+                                            </tr>
+                                            <tr>
+                                              <th>Password</th>
+                                              <td>
+                                              <div class="form-group">
+                                              <input class="form-control" type="password" name="password">
+                                              <p>Note : Jika ingin ganti Password maka isi field berikut, jika tidak abaikan</p>
+                                              </div>
+                                              </td>
+                                            </tr>
+                                            <tr>
+                                              <th>Nama</th>
+                                              <td>
+                                              <div class="form-group">
+                                              <input class="form-control" type="text" name="nama" value="<?php echo $u->nama ?>">
+                                              </div>
+                                              </td>
+                                            </tr>
+                                            <tr>
+                                              <th>Email</th>
+                                              <td>
+                                            <div class="form-group input-group">
+                                            <span class="input-group-addon">@</span>
+                                            <input type="email" class="form-control" name="email" value="<?php echo $u->email ?>">
+                                            </div>
+                                            </td>
+                                            </tr>
+                                            <tr>
+                                              <td colspan="3"><button class="btn btn-default"><input type="submit" name="submit" value="Simpan"></button></td>
+                                            </tr>
+                                            <?php } ?>
+                                      </form>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
+                        </div>
       </div>
 
     <!-- Footer -->

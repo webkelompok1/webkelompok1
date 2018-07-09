@@ -30,8 +30,7 @@
       <div class="container">
         <a class="navbar-brand" href="home">bukanEventBrite</a>
         <div class="dropdown">
-            <a class="btn btn-primary" href="home/create">Buat Event!</a>
-            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
               Kategori
             </button>
         <div class="dropdown-menu">
@@ -39,7 +38,27 @@
             <a class="dropdown-item" href="home/category/<?php echo $key->id ?>"><?=$key->cat_name;?></a>
         <?php } ?>
         </div>
-            <a class="btn btn-primary" href="#">Sign In</a>
+        <?php if(!$this->session->userdata('logged_in')) : ?>
+            <a class="btn btn-primary" href="user/create_user">Buat Akun!</a>
+        <?php endif; ?>
+        <?php if($this->session->userdata('level') == 1) { ?>
+            <a class="btn btn-primary" href="home/halaman_admin">Dashboard</a>
+        <?php } ?>
+        <?php if($this->session->userdata('level') == 2) { ?>
+            <a class="btn btn-primary" href="home/halaman_user/<?php echo $this->session->userdata('id') ?>">Dashboard</a>
+        <?php } ?>
+        <?php if($this->session->userdata('level') == 3) { ?>
+            <a class="btn btn-primary" href="user/edit_data_user/<?php echo $this->session->userdata('id') ?>">Data Diri</a>
+        <?php } ?>
+        <?php if($this->session->userdata('level') != 3) { ?>
+            <a class="btn btn-primary" href="home/create">Buat Event!</a>
+        <?php } ?>
+        <?php if(!$this->session->userdata('logged_in')) : ?>
+            <a class="btn btn-primary" href="user/login">Sign In</a>
+        <?php endif; ?>
+        <?php if($this->session->userdata('logged_in')) : ?>
+            <a class="btn btn-primary" href="user/logout">Logout</a>
+        <?php endif; ?>
         </div>
       </div>
     </nav>
@@ -61,7 +80,7 @@
                                               <th>Nama</th>
                                               <td>
                                               <div class="form-group">
-                                              <input class="form-control" type="text" name="nama">
+                                              <input class="form-control" type="text" value="<?php echo set_value('nama') ?>" name="nama">
                                               <?php foreach($user as $u){ ?>
                                               <input type="hidden" name="id_event" value="<?php echo $u->id ?>">
                                               </div>
@@ -71,7 +90,7 @@
                                               <th>Alamat</th>
                                               <td>
                                               <div class="form-group">
-                                              <textarea name="alamat" rows="2" class="form-control"></textarea>
+                                              <textarea name="alamat" rows="2" value="<?php echo set_value('alamat') ?>" class="form-control"></textarea>
                                               </div>
                                               </td>
                                             </tr>
@@ -79,7 +98,7 @@
                                               <th>Nomor Telepon</th>
                                               <td>
                                               <div class="form-group">
-                                              <input class="form-control" type="text" name="no_telp">
+                                              <input class="form-control" value="<?php echo set_value('no_telp') ?>" type="text" name="no_telp">
                                               </div>
                                               </td>
                                             </tr>
@@ -88,7 +107,7 @@
                                               <td>
                                             <div class="form-group input-group">
                                             <span class="input-group-addon">@</span>
-                                            <input type="email" class="form-control" placeholder="Email" name="email">
+                                            <input type="email" class="form-control"  value="<?php echo set_value('email') ?>" placeholder="Email" name="email">
                                             </div>
                                             </td>
                                             </tr>
@@ -96,7 +115,7 @@
                                               <th>Jumlah Tiket</th>
                                               <td>
                                               <div class="form-group">
-                                              <input class="form-control" type="text" name="qty">
+                                              <input class="form-control" value="<?php echo set_value('qty') ?>" type="text" name="qty">
                                               </div>
                                               </td>
                                             </tr>

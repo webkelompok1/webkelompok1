@@ -68,7 +68,7 @@
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li class="divider"></li>
-                        <li><li><?php echo anchor('user/logout','Logout'); ?>
+                        <li><?php echo anchor('user/logout','Logout'); ?>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -88,6 +88,9 @@
                         </li>
                         <li>
                         <?php echo anchor('home/daftar_event/'.$this->session->userdata('id'),'Data Event'); ?>
+                        </li>
+                        <li>
+                        <?php echo anchor('user/edit_user_premium/'.$this->session->userdata('id'),'Data User'); ?>
                         </li>
                         <li>
                             <a href="">Data Pendaftar (Berdasarkan Event)<span class="fa arrow"></span></a>

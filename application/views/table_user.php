@@ -51,7 +51,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Admin</a>
+                <a class="navbar-brand">Admin</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -62,12 +62,8 @@
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                        </li>
                         <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li><?php echo anchor('user/logout','Logout'); ?>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -79,34 +75,23 @@
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
-                        <li class="sidebar-search">
-                            <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Search...">
-                                <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </span>
-                            </div>
-                            <!-- /input-group -->
+                        <li>
+                            <?php echo anchor('home','Halaman Utama'); ?>
                         </li>
                         <li>
-                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            <?php echo anchor('home/halaman_admin','Halaman Dashboard'); ?>
                         </li>
                         <li>
-                            <a href="tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>
-                        </li>
-                        <li>
-                            <a href="forms.html"><i class="fa fa-edit fa-fw"></i> Forms</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-files-o fa-fw"></i> Sample Pages<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-files-o fa-fw"></i>Daftar Table<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="blank.html">Blank Page</a>
+                                    <?php echo anchor('home/table_event','Table Event'); ?>
                                 </li>
                                 <li>
-                                    <a href="login.html">Login Page</a>
+                                    <?php echo anchor('home/table_pendaftar','Table Pendaftar'); ?>
+                                </li>
+                                <li>
+                                    <?php echo anchor('home/table_user','Table User'); ?>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -125,7 +110,7 @@
                     <div class="panel panel-default">
                         <!-- /.panel-heading -->
                         <div class="panel-heading">
-                            DataTables
+                            Data User
                         </div>
                         <div class="panel-body">
                             <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
@@ -148,7 +133,7 @@
                                         <td><?php echo $d->email ?></td>
                                         <td><?php echo $d->id_level ?></td>
                                         <td>
-                                            <?php echo anchor('user/edit_user/'.$d->id,'Edit'); ?> 
+                                            <?php echo anchor('user/edit_admin/'.$d->id,'Edit'); ?> 
                                             <?php echo anchor('user/hapus_user/'.$d->id, 'Delete'); ?> 
                                         </td>
                                         </tr>
