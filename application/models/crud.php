@@ -64,7 +64,7 @@ class Crud extends CI_Model {
 	public function insert($upload)
 	{
 		$data = array(
-			'id' => '',
+			'event_id' => '',
 			'nama_event' => $this->input->post('nama'),
 			'deskripsi' => $this->input->post('deskripsi'),
 			'tgl_event' => $this->input->post('tgl'),
@@ -79,18 +79,6 @@ class Crud extends CI_Model {
 
 		$this->db->insert('event', $data);
 	}
-
-	/*public function insert_tiket()
-	{
-		$data = array(
-			'id' => '',
-			'kategori' => $this->input->post('kategori'),
-			'harga' => $this->input->post('harga'),
-			'id_event' => $this->input->post('id_event')
-		);
-
-		$this->db->insert('tiket', $data);
-	}*/
 
 	public function insert_pendaftar()
 	{
@@ -135,13 +123,13 @@ class Crud extends CI_Model {
 
 	public function hapusdata($id)
 	{
-		$row = $this->db->where('id',$id)->get('event')->row();
+		$row = $this->db->where('event_id',$id)->get('event')->row();
 
-		$this->db->where('id', $id);
+		$this->db->where('event_id', $id);
 
-		unlink('upload/'.$row->isi_file);
+		unlink('upload/'.$row->gambar);
 
-		$this->db->delete('event', array('id' => $id));
+		$this->db->delete('event', array('event_id' => $id));
 	}
 
 	public function hapusdatapendaftar($id)
@@ -149,8 +137,6 @@ class Crud extends CI_Model {
 		$row = $this->db->where('id',$id)->get('pendaftar')->row();
 
 		$this->db->where('id', $id);
-
-		unlink('upload/'.$row->isi_file);
 
 		$this->db->delete('pendaftar', array('id' => $id));
 	}

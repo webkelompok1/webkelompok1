@@ -97,7 +97,7 @@
                             <ul class="nav nav-second-level">
                                 <li>
                                     <?php foreach ($event as $key) { ?>
-                                    <?php echo anchor('home/daftar_pendaftar/'.$key->id,$key->nama_event); ?>
+                                    <?php echo anchor('home/daftar_pendaftar/'.$key->event_id,$key->nama_event); ?>
                                     <?php } ?>
                                 </li>
                             </ul>

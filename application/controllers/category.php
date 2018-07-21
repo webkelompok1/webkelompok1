@@ -19,11 +19,11 @@ class Category extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->model('category_model');
+		/*$this->load->model('category_model');
 
 		$data['categories'] = $this->category_model->get_all_categories();
 
-		$this->load->view('cat_view', $data);
+		$this->load->view('cat_view', $data);*/
 	}
 
 	public function create()
@@ -34,11 +34,13 @@ class Category extends CI_Controller {
 
         $this->load->library('form_validation');
 
+       	$data['kategori'] = $this->crud->get_kategori();
+
                 $this->form_validation->set_rules('cat_name', 'Nama Kategori', 'required|is_unique[categories.cat_name]');
 
          if ($this->form_validation->run() == FALSE)
                 {
-                        $this->load->view('cat_create');
+                        $this->load->view('cat_create',$data);
                 } else {
 
 		$post_data = array(
@@ -59,12 +61,13 @@ class Category extends CI_Controller {
 		$this->load->model('category_model');
 		$id = $this->uri->segment(3);
 		$this->category_model->hapusdata($id);
-		redirect('category');
+		redirect('home/table_kategori');
 	}
 
 	public function edit($id){
 		$this->load->model('category_model');
 		$where = array('id' => $id);
+		$data['kategori'] = $this->crud->get_kategori();
 		$data['user'] = $this->category_model->edit_data($where,'categories')->result();
 		$this->load->view('cat_edit',$data);
 	}
@@ -84,7 +87,7 @@ class Category extends CI_Controller {
 	);
  
 	$this->category_model->update_data($where,$data,'categories');
-	redirect('category');
+	redirect('home/table_kategori');
 	}
 }
 /* End of file welcome.php */

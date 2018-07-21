@@ -93,6 +93,9 @@
                                 <li>
                                     <?php echo anchor('home/table_user','Table User'); ?>
                                 </li>
+                                <li>
+                                    <?php echo anchor('home/table_kategori','Table Kategori'); ?>
+                                </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>

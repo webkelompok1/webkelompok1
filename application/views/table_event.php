@@ -92,6 +92,9 @@
                                 <li>
                                     <?php echo anchor('home/table_user','Table User'); ?>
                                 </li>
+                                <li>
+                                    <?php echo anchor('home/table_kategori','Table Kategori'); ?>
+                                </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
@@ -126,13 +129,14 @@
                                         <th>Jenis Tiket</th>
                                         <th>Harga</th>
                                         <th>Lokasi</th>
+                                        <th>Kategori ID</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php foreach ($event as $d) : ?>
                                         <tr>
-                                        <td><?php echo $d->id ?></td>
+                                        <td><?php echo $d->event_id ?></td>
                                         <td><?php echo $d->nama_event ?></td>
                                         <td><?php echo $d->deskripsi ?></td>
                                         <td><?php echo $d->tgl_event ?></td>
@@ -141,9 +145,10 @@
                                         <td><?php echo $d->jenis_tiket ?></td>
                                         <td><?php echo $d->harga ?></td>
                                         <td><?php echo $d->lokasi ?></td>
+                                        <td><?php echo $d->cat_id ?></td>
                                         <td>
-                                            <?php echo anchor('home/edit/'.$d->id,'Edit'); ?> 
-                                            <?php echo anchor('home/hapus/'.$d->id, 'Delete'); ?> 
+                                            <?php echo anchor('home/edit/'.$d->event_id,'Edit'); ?> 
+                                            <?php echo anchor('home/hapus/'.$d->event_id, 'Delete'); ?> 
                                         </td>
                                         </tr>
                                     <?php endforeach; ?> 

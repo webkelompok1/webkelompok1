@@ -14,13 +14,6 @@ class Category_model extends CI_Model {
 		return $query->result();
 	}
 
-	/*public function get_all_categories_tiket($id) {
-		$this->db->order_by('kategori');
-
-		$query = $this->db->get('tiket');
-		return $query->result();
-	}*/
-
 	public function hapusdata($id)
 	{
 		$this->db->where('id',$id);

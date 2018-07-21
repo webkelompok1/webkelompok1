@@ -155,7 +155,7 @@
                                               <td>
                                               <div class="form-group">
                                               <input class="form-control" type="text" name="nama" value="<?php echo $u->nama_event ?>">
-                                              <input type="hidden" name="id" value="<?php echo $u->id ?>">
+                                              <input type="hidden" name="id" value="<?php echo $u->event_id ?>">
                                               </div>
                                               </td>
                                             </tr>

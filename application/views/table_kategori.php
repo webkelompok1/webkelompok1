@@ -8,7 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-
     <title>Halaman Admin</title>
 
     <!-- Bootstrap Core CSS -->
@@ -43,7 +42,7 @@
     <div id="wrapper">
 
         <!-- Navigation -->
-        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <nav class="navbar navbar-default navbar-static-top warna" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -103,41 +102,38 @@
                 </div>
                 <!-- /.sidebar-collapse -->
             </div>
+                <!-- /.sidebar-collapse -->
+            </div>
             <!-- /.navbar-static-side -->
         </nav>
 
         <div id="page-wrapper">
             <!-- /.row -->
+            <br>
+            <?php echo anchor('category/create','Buat Kategori', array('class' => 'btn btn-primary')); ?>
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
-                        <!-- /.panel-heading -->
                         <div class="panel-heading">
-                            Data User
+                            Data Kategori
                         </div>
+                        <!-- /.panel-heading -->
                         <div class="panel-body">
                             <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                     <tr>
-                                        <th>ID Pendaftar</th>
-                                        <th>Username</th>
-                                        <th>Nama</th>
-                                        <th>Email</th>
-                                        <th>Level</th>
-                                        <th>Action</th>
+                                        <th>ID Kategori</th>
+                                        <th>Nama Kategori</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                        <?php foreach ($user as $d) : ?>
+                                    <?php foreach ($kategori as $d) : ?>
                                         <tr>
                                         <td><?php echo $d->id ?></td>
-                                        <td><?php echo $d->username ?></td>
-                                        <td><?php echo $d->nama ?></td>
-                                        <td><?php echo $d->email ?></td>
-                                        <td><?php echo $d->id_level ?></td>
+                                        <td><?php echo $d->cat_name ?></td>
                                         <td>
-                                            <?php echo anchor('user/edit_admin/'.$d->id,'Edit'); ?> 
-                                            <?php echo anchor('user/hapus_user/'.$d->id, 'Delete'); ?> 
+                                            <?php echo anchor('category/edit/'.$d->id,'Edit',array('class' => 'btn btn-primary')); ?> 
+                                            <?php echo anchor('category/hapus/'.$d->id, 'Delete',array('class' => 'btn btn-primary')); ?> 
                                         </td>
                                         </tr>
                                     <?php endforeach; ?> 

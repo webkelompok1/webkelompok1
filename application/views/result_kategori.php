@@ -28,36 +28,36 @@
     <!-- Navigation -->
     <nav class="navbar navbar-light bg-light static-top">
       <div class="container">
-        <a class="navbar-brand" href="home">bukanEventBrite</a>
+        <?php echo anchor('home','bukanEventBrite', array('class' => 'navbar-brand')); ?>
         <div class="dropdown">
         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
               Kategori
             </button>
         <div class="dropdown-menu">
         <?php foreach ($kategori as $key) {?>
-            <a class="dropdown-item"><?php echo anchor('home/category/'.$key->id,$key->cat_name); ?></a>
+            <?php echo anchor('home/category/'.$key->id,$key->cat_name, array('class' => 'dropdown-item')); ?>
         <?php } ?>
         </div>
         <?php if(!$this->session->userdata('logged_in')) : ?>
-            <a class="btn btn-primary" href="user/create_user">Buat Akun!</a>
+            <?php echo anchor('user/create_user','Buat Akun!', array('class' => 'btn btn-primary')); ?>
         <?php endif; ?>
         <?php if($this->session->userdata('level') == 1) { ?>
-            <a class="btn btn-primary" href="home/halaman_admin">Dashboard</a>
+            <?php echo anchor('home/halaman_admin','Dashboard', array('class' => 'btn btn-primary')); ?>
         <?php } ?>
         <?php if($this->session->userdata('level') == 2) { ?>
-            <a class="btn btn-primary" href="home/halaman_user/<?php echo $this->session->userdata('id') ?>">Dashboard</a>
+            <?php echo anchor('home/halaman_user/'.$this->session->userdata('id'),'Dashboard', array('class' => 'btn btn-primary')); ?>
         <?php } ?>
         <?php if($this->session->userdata('level') == 3) { ?>
-            <a class="btn btn-primary" href="user/edit_data_user/<?php echo $this->session->userdata('id') ?>">Data Diri</a>
+            <?php echo anchor('user/edit_user_regular/'.$this->session->userdata('id'),'Data Diri', array('class' => 'btn btn-primary')); ?>
         <?php } ?>
         <?php if($this->session->userdata('level') != 3) { ?>
-            <a class="btn btn-primary" href="home/create">Buat Event!</a>
+            <?php echo anchor('home/create','Buat Event!', array('class' => 'btn btn-primary')); ?>
         <?php } ?>
         <?php if(!$this->session->userdata('logged_in')) : ?>
-            <a class="btn btn-primary" href="user/login">Sign In</a>
+            <?php echo anchor('user/login','Sign In', array('class' => 'btn btn-primary')); ?>
         <?php endif; ?>
         <?php if($this->session->userdata('logged_in')) : ?>
-            <a class="btn btn-primary" href="user/logout">Logout</a>
+            <?php echo anchor('user/logout','Logout', array('class' => 'btn btn-primary')); ?>
         <?php endif; ?>
         </div>
       </div>
@@ -67,18 +67,18 @@
     <br>
     <div class="container">
     <div class="row text-center">
-      <?php foreach ($detail as $key) { ?>
+      <?php foreach ($detail as $a) { ?>
         <div class="col-lg-3 col-md-6 mb-4">
           <div class="card">
             <div class="card-body">
-              <img class="card-img-top" src="<?php echo base_url() .'upload/'. $key->gambar ?>" alt="Card image cap">
-              <h4 class="card-title"><?php echo $key->nama_event; ?></h4>
-              <p class="card-title"><?php echo $key->deskripsi; ?></p>
-              <p class="card-title"><b>Lokasi : </b><?php echo $key->lokasi; ?></p>
-              <p class="card-title"><b>Harga : Rp.</b>Rp.<?php echo $key->harga ?> / </b><?php echo $key->jenis_tiket ?></p>
+              <img class="card-img-top" src="<?php echo base_url() .'upload/'. $a->gambar ?>" alt="Card image cap">
+              <h4 class="card-title"><?php echo $a->nama_event; ?></h4>
+              <p class="card-title"><?php echo $a->deskripsi; ?></p>
+              <p class="card-title"><b>Lokasi : </b><?php echo $a->lokasi; ?></p>
+              <p class="card-title"><b>Harga : Rp.</b>Rp.<?php echo $a->harga ?> / </b><?php echo $a->jenis_tiket ?></p>
             </div>
             <div class="card-footer">
-            <a href="home/create_pendaftar/<?php echo $key->id ?>" class="btn btn-primary">Daftar !</a>
+            <?php echo anchor('home/create_pendaftar/'.$a->event_id,'Daftar !', array('class' => 'btn btn-primary')); ?>
             </div>
           </div>
         </div>

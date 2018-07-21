@@ -28,36 +28,36 @@
     <!-- Navigation -->
     <nav class="navbar navbar-light bg-light static-top">
       <div class="container">
-        <a class="navbar-brand" href="home">bukanEventBrite</a>
+        <?php echo anchor('home','bukanEventBrite', array('class' => 'navbar-brand')); ?>
         <div class="dropdown">
         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
               Kategori
             </button>
         <div class="dropdown-menu">
         <?php foreach ($kategori as $key) {?>
-            <a class="dropdown-item" href="home/category/<?php echo $key->id ?>"><?=$key->cat_name;?></a>
+            <?php echo anchor('home/category/'.$key->id,$key->cat_name, array('class' => 'dropdown-item')); ?>
         <?php } ?>
         </div>
         <?php if(!$this->session->userdata('logged_in')) : ?>
-            <a class="btn btn-primary" href="user/create_user">Buat Akun!</a>
+            <?php echo anchor('user/create_user','Buat Akun!', array('class' => 'btn btn-primary')); ?>
         <?php endif; ?>
         <?php if($this->session->userdata('level') == 1) { ?>
-            <a class="btn btn-primary" href="home/halaman_admin">Dashboard</a>
+            <?php echo anchor('home/halaman_admin','Dashboard', array('class' => 'btn btn-primary')); ?>
         <?php } ?>
         <?php if($this->session->userdata('level') == 2) { ?>
-            <a class="btn btn-primary" href="home/halaman_user/<?php echo $this->session->userdata('id') ?>">Dashboard</a>
+            <?php echo anchor('home/halaman_user/'.$this->session->userdata('id'),'Dashboard', array('class' => 'btn btn-primary')); ?>
         <?php } ?>
         <?php if($this->session->userdata('level') == 3) { ?>
-            <a class="btn btn-primary" href="user/edit_data_user/<?php echo $this->session->userdata('id') ?>">Data Diri</a>
+            <?php echo anchor('user/edit_user_regular/'.$this->session->userdata('id'),'Data Diri', array('class' => 'btn btn-primary')); ?>
         <?php } ?>
         <?php if($this->session->userdata('level') != 3) { ?>
-            <a class="btn btn-primary" href="home/create">Buat Event!</a>
+            <?php echo anchor('home/create','Buat Event!', array('class' => 'btn btn-primary')); ?>
         <?php } ?>
         <?php if(!$this->session->userdata('logged_in')) : ?>
-            <a class="btn btn-primary" href="user/login">Sign In</a>
+            <?php echo anchor('user/login','Sign In', array('class' => 'btn btn-primary')); ?>
         <?php endif; ?>
         <?php if($this->session->userdata('logged_in')) : ?>
-            <a class="btn btn-primary" href="user/logout">Logout</a>
+            <?php echo anchor('user/logout','Logout', array('class' => 'btn btn-primary')); ?>
         <?php endif; ?>
         </div>
       </div>
@@ -82,7 +82,7 @@
                                               <div class="form-group">
                                               <input class="form-control" type="text" value="<?php echo set_value('nama') ?>" name="nama">
                                               <?php foreach($user as $u){ ?>
-                                              <input type="hidden" name="id_event" value="<?php echo $u->id ?>">
+                                              <input type="hidden" name="id_event" value="<?php echo $u->event_id ?>">
                                               </div>
                                               </td>
                                             </tr>
@@ -133,6 +133,19 @@
                                                 <div class="form-group">
                                                 <input class="form-control" type="text" name="harga" value="<?php echo $u->harga ?>">
                                                 </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                <div class="form-group">
+                                                <input class="form-control" type="checkbox" name="check">
+                                                </div>
+                                                </td>
+                                                <td>
+                                                <p>Data Registrasi akan dikirimkan melalui E-mail / SMS, Pastikan E-mail / Nomor Telepon anda aktif.</p>
+                                                <p>Pastikan data yang anda masukan sesuai dengan persyaratan dan terbukti kebenaranya.</p>
+                                                <p>Jika ada kesalahan data, Hubungi cs@websiteini.com</p>
+                                                <p><b>PASTIKAN ANDA KLIK CENTANG PADA BAGIAN KIRI PERNYATAAN INI!</b></p>
                                                 </td>
                                             </tr>
                                             <tr>
